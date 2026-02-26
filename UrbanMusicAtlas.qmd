@@ -10,9 +10,19 @@ format:
 #| include: false
 library(tidyverse)
 library(compmus)
+
 DTMF <- read_csv('canciones/DTMF_chromagram.csv')
 niBorracho <- read_csv('canciones/niBorracho_chromagram.csv')
 malamente <- read_csv('canciones/malamente_chromagram.csv')
+
+DTMF_timbre <- read_csv('canciones/DTMF_timbre.csv', 
+                         col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:20))))
+
+niBorracho_timbre <- read_csv('canciones/niBorracho_timbre.csv', 
+                         col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:20))))
+
+malamente_timbre <- read_csv('canciones/malamente_timbre.csv', 
+                         col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:20))))
 ```
 
 ## Welcome {.unnumbered}
@@ -96,9 +106,22 @@ Strong concentration around G, C, and F — reflecting the harmonic language dee
 
 > Quevedo's chromagram appears harmonically closer to Bad Bunny than to Rosalía — hinting that Canarian music carries a stronger Latin Caribbean influence than a Peninsular Spanish one.
 
-## Loudness
+## Timbre Features
+```{r}
+#| echo: false
 
-## Timbre
+```
+
+```{r}
+#| echo: false
+
+```
+
+```{r}
+#| echo: false
+
+```
+
 
 ## Clustering
 
