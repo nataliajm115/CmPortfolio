@@ -6,6 +6,14 @@ format:
     css: styles.css
     toc: false
 ---
+```{r}
+#| include: false
+library(tidyverse)
+library(compmus)
+DTMF <- read_csv('canciones/DTMF_chromagram.csv')
+niBorracho <- read_csv('canciones/niBorracho_chromagram.csv')
+malamente <- read_csv('canciones/malamente_chromagram.csv')
+```
 
 ## Welcome {.unnumbered}
 
@@ -13,10 +21,80 @@ Spanish-language urban music (2015–2025) across three geographic contexts.
 
 ::: panel-tabset
 ## Background
+This corpus examines Spanish-language urban music (2015–2025) across three geographic contexts: Puerto Rico, the Canary Islands, and mainland Spain. Puerto Rico represents the birthplace of reggaeton and a central node of Caribbean urban production. Mainland Spain represents a European market in which urban styles have hybridised with pop, flamenco, and experimental influences. The Canary Islands occupy a unique Atlantic position: politically Spanish yet historically and culturally connected to Latin America and geographically closer to Africa.
+
+The corpus includes approximately 240 tracks drawn from representative artists in each region, balancing reggaeton-focused performers with hybrid urban artists. By analysing Spotify track-level audio features, I want to investigate whether measurable stylistic differences reflect proximity to the Caribbean. In particular, whether Canary Islands urbano occupies an intermediate position between Caribbean reggaeton and mainland Spanish urban pop.
+
+Rather than assuming genre boundaries, the study explores how urban music ecosystems diverge or converge across space within the global streaming era.
 
 ## Track Features
 
 ## Chroma Features
+
+These three chromagrams represent the pitch-class energy over time for three culturally rooted tracks from each region.
+
+::: chroma-grid
+
+::: {.chroma-card .pr}
+::: chroma-header
+🇵🇷 **DTMF · Bad Bunny** — Puerto Rico
+:::
+```{r}
+#| echo: false
+DTMF |>
+  compmus_wrangle_chroma() |> 
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+  compmus_gather_chroma() |> 
+  ggplot(aes(x = start + duration / 2, width = duration, y = pitch_class, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_minimal() +
+  scale_fill_viridis_c()
+```
+Shows prominent activity around A♭ and E, common in reggaeton production rooted in Puerto Rico.
+:::
+
+::: {.chroma-card .ci}
+::: chroma-header
+🏝️ **NI BORRACHO · Quevedo** — Canary Islands
+:::
+```{r}
+#| echo: false
+niBorracho |>
+  compmus_wrangle_chroma() |> 
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+  compmus_gather_chroma() |> 
+  ggplot(aes(x = start + duration / 2, width = duration, y = pitch_class, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_minimal() +
+  scale_fill_viridis_c()
+```
+Energy evenly spread across A, G, F, and E — no single dominant tonal centre, suggesting a blend of Iberian and Latin American influences.
+:::
+
+::: {.chroma-card .sp}
+::: chroma-header
+🇪🇸 **MALAMENTE · Rosalía** — Mainland Spain
+:::
+```{r}
+#| echo: false
+malamente |>
+  compmus_wrangle_chroma() |> 
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+  compmus_gather_chroma() |> 
+  ggplot(aes(x = start + duration / 2, width = duration, y = pitch_class, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_minimal() +
+  scale_fill_viridis_c()
+```
+Strong concentration around G, C, and F — reflecting the harmonic language deeply embedded in flamenco tradition.
+:::
+
+:::
+
+> Quevedo's chromagram appears harmonically closer to Bad Bunny than to Rosalía — hinting that Canarian music carries a stronger Latin Caribbean influence than a Peninsular Spanish one.
 
 ## Loudness
 
