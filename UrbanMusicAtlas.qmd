@@ -16,13 +16,14 @@ niBorracho <- read_csv('canciones/niBorracho_chromagram.csv')
 malamente <- read_csv('canciones/malamente_chromagram.csv')
 
 DTMF_timbre <- read_csv('canciones/DTMF_timbre.csv', 
-                         col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:20))))
-
+                         col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:22))),
+                         skip = 1)
 niBorracho_timbre <- read_csv('canciones/niBorracho_timbre.csv', 
-                         col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:20))))
-
+                         col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:22))),
+                         skip = 1)
 malamente_timbre <- read_csv('canciones/malamente_timbre.csv', 
-                         col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:20))))
+                         col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:22))),
+                         skip = 1)
 ```
 
 ## Welcome {.unnumbered}
@@ -31,17 +32,31 @@ Spanish-language urban music (2015–2025) across three geographic contexts.
 
 ::: panel-tabset
 ## Background
-This corpus examines Spanish-language urban music (2015–2025) across three geographic contexts: Puerto Rico, the Canary Islands, and mainland Spain. Puerto Rico represents the birthplace of reggaeton and a central node of Caribbean urban production. Mainland Spain represents a European market in which urban styles have hybridised with pop, flamenco, and experimental influences. The Canary Islands occupy a unique Atlantic position: politically Spanish yet historically and culturally connected to Latin America and geographically closer to Africa.
+This corpus examines Spanish-language urban music (2015–2025) across three 
+geographic contexts: Puerto Rico, the Canary Islands, and mainland Spain. 
+Puerto Rico represents the birthplace of reggaeton and a central node of 
+Caribbean urban production. Mainland Spain represents a European market in which
+urban styles have hybridised with pop, flamenco, and experimental influences. 
+The Canary Islands occupy a unique Atlantic position: politically Spanish yet 
+historically and culturally connected to Latin America and geographically closer
+to Africa.
 
-The corpus includes approximately 240 tracks drawn from representative artists in each region, balancing reggaeton-focused performers with hybrid urban artists. By analysing Spotify track-level audio features, I want to investigate whether measurable stylistic differences reflect proximity to the Caribbean. In particular, whether Canary Islands urbano occupies an intermediate position between Caribbean reggaeton and mainland Spanish urban pop.
+The corpus includes approximately 240 tracks drawn from representative artists 
+in each region, balancing reggaeton-focused performers with hybrid urban 
+artists. By analysing Spotify track-level audio features, I want to investigate
+whether measurable stylistic differences reflect proximity to the Caribbean. In 
+particular, whether Canary Islands urbano occupies an intermediate position 
+between Caribbean reggaeton and mainland Spanish urban pop.
 
-Rather than assuming genre boundaries, the study explores how urban music ecosystems diverge or converge across space within the global streaming era.
+Rather than assuming genre boundaries, the study explores how urban music 
+ecosystems diverge or converge across space within the global streaming era.
 
 ## Track Features
 
 ## Chroma Features
 
-These three chromagrams represent the pitch-class energy over time for three culturally rooted tracks from each region.
+These three chromagrams represent the pitch-class energy over time for three 
+culturally rooted tracks from each region.
 
 ::: chroma-grid
 
@@ -61,7 +76,8 @@ DTMF |>
   theme_minimal() +
   scale_fill_viridis_c()
 ```
-Shows prominent activity around A♭ and E, common in reggaeton production rooted in Puerto Rico.
+Shows prominent activity around A♭ and E, common in reggaeton production rooted 
+in Puerto Rico.
 :::
 
 ::: {.chroma-card .ci}
@@ -80,7 +96,8 @@ niBorracho |>
   theme_minimal() +
   scale_fill_viridis_c()
 ```
-Energy evenly spread across A, G, F, and E — no single dominant tonal centre, suggesting a blend of Iberian and Latin American influences.
+Energy evenly spread across A, G, F, and E — no single dominant tonal centre, 
+suggesting a blend of Iberian and Latin American influences.
 :::
 
 ::: {.chroma-card .sp}
@@ -107,20 +124,78 @@ Strong concentration around G, C, and F — reflecting the harmonic language dee
 > Quevedo's chromagram appears harmonically closer to Bad Bunny than to Rosalía — hinting that Canarian music carries a stronger Latin Caribbean influence than a Peninsular Spanish one.
 
 ## Timbre Features
+
+These cepstrograms show the timbral texture over time for each track using Mel-Frequency Cepstral Coefficients (MFCCs).
+
+**🇵🇷 Bad Bunny – DtMF (Puerto Rico)**
 ```{r}
 #| echo: false
-
+DTMF_timbre |>
+  compmus_wrangle_timbre() |> 
+  mutate(timbre = map(timbre, compmus_normalise, "manhattan")) |>
+  compmus_gather_timbre() |>
+  ggplot(aes(x = start + duration / 2, width = duration, y = mfcc, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  scale_fill_viridis_c() +                              
+  theme_classic() +
+  ggtitle("DtMF - Bad Bunny (Puerto Rico)")
 ```
+MFCC_02 shows the most variation with spikes throughout, indicating strong and 
+consistent low-frequency energy, typical of reggeaton's heavy bass and kick drum
+production.The upper MFCCs (15 to 21) are relatively uniform, suggesting a 
+stable, electronically produced timbral texture with little acoustic variation. 
 
+
+**🏝️ Quevedo – NI BORRACHO (Canary Islands)**
 ```{r}
 #| echo: false
-
+niBorracho_timbre |>
+  compmus_wrangle_timbre() |> 
+  mutate(timbre = map(timbre, compmus_normalise, "manhattan")) |>
+  compmus_gather_timbre() |>
+  ggplot(aes(x = start + duration / 2, width = duration, y = mfcc, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  scale_fill_viridis_c() +                              
+  theme_classic() +
+  ggtitle("NI BORRACHO - Quevedo (Canary Islands)")
 ```
+Just like DtMF, mfcc_02 also dominates with strong brightness. However, mfcc_07 
+shows more dramatic dark patches, moments of contrast that could correspond to 
+the chorus of the song and the production drops that it has. The overall texture
+is more varied than Bad Bunny's, hinting at a more melodically dynamic 
+production style that blends urban and pop.
 
+**🇪🇸 Rosalía – Malamente (Spain)**
 ```{r}
 #| echo: false
-
+malamente_timbre |>
+  compmus_wrangle_timbre() |> 
+  mutate(timbre = map(timbre, compmus_normalise, "manhattan")) |>
+  compmus_gather_timbre() |>
+  ggplot(aes(x = start + duration / 2, width = duration, y = mfcc, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  scale_fill_viridis_c() +                              
+  theme_classic() +
+  ggtitle("MALAMENTE - Rosalía (Peninsular Spain)")
 ```
+This is the most distinctive cepstogram of the three. 
+MFCC_09 shows a persistent band of negative values for 
+the entire length of the track which reflects the 
+timbral quality of the guitar and flamenco vocals which
+occupy a different frequency than electronic production.
+MFCC_02 still shows brightness but less so than the 
+other two tracks.
+
+> All three tracks share a strong mfcc_02 component, suggesting comparable 
+low-frequency energy across regions. Bad Bunny and Quevedo are timbally closer 
+to each other and Malamente stands out with its unique MFCC_09 pattern. 
+This aligns with out hypothesis that Canarian urbano leans Caribbean rather than
+Iberian.
+
+## Temporal
 
 
 ## Clustering

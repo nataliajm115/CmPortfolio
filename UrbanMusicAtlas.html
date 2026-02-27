@@ -69,7 +69,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="unnumbered anchored" data-anchor-id="welcome">Welcome</h2>
 <p>Spanish-language urban music (2015–2025) across three geographic contexts.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Background</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Track Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Chroma Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Timbre Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Clustering</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">Contribution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Background</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Track Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Chroma Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Timbre Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Temporal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">Clustering</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false" href="">Contribution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>This corpus examines Spanish-language urban music (2015–2025) across three geographic contexts: Puerto Rico, the Canary Islands, and mainland Spain. Puerto Rico represents the birthplace of reggaeton and a central node of Caribbean urban production. Mainland Spain represents a European market in which urban styles have hybridised with pop, flamenco, and experimental influences. The Canary Islands occupy a unique Atlantic position: politically Spanish yet historically and culturally connected to Latin America and geographically closer to Africa.</p>
@@ -133,12 +133,51 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-
+<p>These cepstrograms show the timbral texture over time for each track using Mel-Frequency Cepstral Coefficients (MFCCs).</p>
+<p><strong>🇵🇷 Bad Bunny – DtMF (Puerto Rico)</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="UrbanMusicAtlas_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>MFCC_02 shows the most variation with spikes throughout, indicating strong and consistent low-frequency energy, typical of reggeaton’s heavy bass and kick drum production.The upper MFCCs (15 to 21) are relatively uniform, suggesting a stable, electronically produced timbral texture with little acoustic variation.</p>
+<p><strong>🏝️ Quevedo – NI BORRACHO (Canary Islands)</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="UrbanMusicAtlas_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Just like DtMF, mfcc_02 also dominates with strong brightness. However, mfcc_07 shows more dramatic dark patches, moments of contrast that could correspond to the chorus of the song and the production drops that it has. The overall texture is more varied than Bad Bunny’s, hinting at a more melodically dynamic production style that blends urban and pop.</p>
+<p><strong>🇪🇸 Rosalía – Malamente (Spain)</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="UrbanMusicAtlas_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This is the most distinctive cepstogram of the three. MFCC_09 shows a persistent band of negative values for the entire length of the track which reflects the timbral quality of the guitar and flamenco vocals which occupy a different frequency than electronic production. MFCC_02 still shows brightness but less so than the other two tracks.</p>
+<blockquote class="blockquote">
+<p>All three tracks share a strong mfcc_02 component, suggesting comparable low-frequency energy across regions. Bad Bunny and Quevedo are timbally closer to each other and Malamente stands out with its unique MFCC_09 pattern. This aligns with out hypothesis that Canarian urbano leans Caribbean rather than Iberian.</p>
+</blockquote>
 </div>
 <div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
 
 </div>
 <div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+
+</div>
+<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
 
 </div>
 </div>
