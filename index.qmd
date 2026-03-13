@@ -12,6 +12,14 @@ format:
 library(tidyverse)
 library(compmus)
 
+CM_corpus <- read_csv("canciones/CM_corpus.csv", show_col_types = FALSE)
+
+CM_corpus <- CM_corpus |>
+  rename_with(~ .x |>
+    str_to_lower() |>
+    str_replace_all("[^a-z0-9]+", "_") |>
+    str_replace_all("^_|_$", ""))
+
 DTMF <- read_csv('canciones/DTMF_chromagram.csv')
 niBorracho <- read_csv('canciones/niBorracho_chromagram.csv')
 malamente <- read_csv('canciones/malamente_chromagram.csv')
@@ -25,6 +33,42 @@ niBorracho_timbre <- read_csv('canciones/niBorracho_timbre.csv',
 malamente_timbre <- read_csv('canciones/malamente_timbre.csv', 
                          col_names = c("TIME", paste0("mfcc_", sprintf("%02d", 1:22))),
                          skip = 1)
+niBorracho_novelty <- read_csv("canciones/niBorracho_novelty.csv", show_col_types = FALSE)
+niBorracho_act <- read_csv("canciones/niBorracho_act.csv", show_col_types = FALSE)
+niBorracho_dft <- read_csv("canciones/niBorracho_dft.csv", show_col_types = FALSE)
+# Shared plot theme
+atlas_theme <- function() {
+  theme_classic() +
+    theme(
+      plot.background  = element_rect(fill = "#0a0c14", color = NA),
+      panel.background = element_rect(fill = "#12152a", color = NA),
+      panel.grid       = element_blank(),
+      axis.line        = element_line(color = "#252a4a"),
+      axis.ticks       = element_line(color = "#252a4a"),
+      text             = element_text(color = "#f0ecdf", family = "sans"),
+      axis.text        = element_text(color = "#8888aa", size = 10),
+      axis.title       = element_text(color = "#8888aa", size = 11),
+      plot.title       = element_text(color = "#f5c842", size = 16, face = "bold"),
+      plot.subtitle    = element_text(color = "#f0ecdf", size = 11),
+      plot.margin      = margin(12, 16, 12, 12),
+      legend.background = element_rect(fill = "#12152a", color = NA),
+      legend.key        = element_rect(fill = "#12152a", color = NA),
+      legend.text       = element_text(color = "#f0ecdf"),
+      legend.title      = element_text(color = "#f5c842")
+    )
+}
+
+# Small helper to safely convert tempogram column names to numeric tempo bins
+long_tempogram <- function(df) {
+  time_col <- names(df)[1]
+
+  df |>
+    pivot_longer(-all_of(time_col), names_to = "tempo", values_to = "value") |>
+    mutate(
+      tempo = as.numeric(tempo)
+    ) |>
+    rename(TIME = all_of(time_col))
+}
 ```
 
 ::: hero-banner
@@ -491,7 +535,125 @@ malamente_timbre |>
 **Timbre SSM:** Strong diagonal stripes with clear off-diagonal blocks. Several sections return and repeat, consistent with flamenco's structured forms. Malamente has the most clearly defined musical structure of the three tracks.
 :::
 
+### Rythm and Tempo · NI BORRACHO
+To extend the temporal analysis beyond structural repetition, I analysed
+**NI BORRACHO** using a novelty function and two tempograms generated in
+Sonic Visualiser. These visualisations highlight moments of rhythmic change
+and reveal how pulse strength is distributed across different tempo levels.
+```{r}
+#| echo: false
+ggplot(niBorracho_novelty, aes(x = TIME, y = VALUE)) +
+  geom_line(color = "#00b4a2", linewidth = 0.7) +
+  coord_cartesian(xlim = c(0, 30)) +
+  labs(
+    title = "NI BORRACHO — Novelty Function",
+    subtitle = "First 30 seconds",
+    x = "Time (s)",
+    y = "Novelty"
+  ) +
+  atlas_theme()
+```
+The novelty curve shows rapid frame-level changes in the audio signal. The teal
+line represents the raw novelty function. In the first seconds of **NI BORRACHO**, the novelty values are dense and high, reflecting frequent rhythmic events associated with percussion and vocal entry. Later sections show fewer spikes,suggesting more stable musical texture.
+
+Compared to an energy-based novelty function, this spectrum-based novelty curve
+captures changes in timbre and spectral structure rather than only amplitude.
+For highly compressed urbano productions, this makes it more reliable for
+detecting rhythmic events and therefore more useful for beat tracking.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+long_tempogram(niBorracho_act) |>
+  ggplot(aes(x = TIME, y = tempo, fill = value)) +
+  geom_raster() +
+  scale_y_continuous(
+    transform = c("reciprocal", "reverse"),
+    breaks = seq(50, 250, 50)
+  ) +
+  scale_fill_viridis_c(option = "C", guide = "none") +
+  coord_cartesian(xlim = c(0, 30)) +
+  labs(
+    title = "NI BORRACHO — Autocorrelation Tempogram",
+    subtitle = "First 30 seconds",
+    x = "Time (s)",
+    y = "Tempo (BPM)"
+  ) +
+  atlas_theme()
+```
+The autocorrelation tempogram allowes us to observe how tempo-related structures evolve over time. Brighter horizontal bands indicate tempi with stronger periodic repetition.
+
+In the first 30 seconds of “Ni Borracho”, several strong horizontal bands appear between approximately 70 BPM and 150 BPM, indicating a stable rhythmic structure typical of urbano and reggaeton production. The most prominent band occurs around ~90–100 BPM, which likely corresponds to the track’s underlying pulse. Additional bands at higher tempi represent harmonic multiples of the beat (double or triple tempo interpretations).
+
+The brightness of these bands is strongest during the first 10–15 seconds, suggesting that rhythmic activity and onset density are highest in the introductory section. After this point, the energy becomes more diffuse, indicating a more stable groove where fewer new rhythmic events are introduced.
+
+Overall, the tempogram shows that the track maintains a consistent tempo structure, with periodicities remaining relatively stable across the analysed time window.
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+long_tempogram(niBorracho_dft) |>
+  ggplot(aes(x = TIME, y = tempo, fill = value)) +
+  geom_raster() +
+  scale_fill_viridis_c(option = "C", guide = "none") +
+  coord_cartesian(xlim = c(0, 30), ylim = c(40, 250)) +
+  labs(
+    title = "NI BORRACHO — Fourier Tempogram",
+    subtitle = "First 30 seconds",
+    x = "Time (s)",
+    y = "Tempo (BPM)"
+  ) +
+  atlas_theme()
+```
+The Fourier tempogram shows the strength of periodicities in the novelty curve using a short-time Fourier transform. Brighter regions indicate tempi where rhythmic periodicities are strongest over time.
+
+In the first 30 seconds of “Ni Borracho”, the most prominent band appears around 150 BPM, indicating a strong and stable rhythmic periodicity at this tempo. This likely corresponds to the perceived pulse of the track or a metrical subdivision of the main beat, which is common in urbano and reggaeton rhythms where the perceived beat may be interpreted at multiple metrical levels.
+
+The strong horizontal structure indicates that the tempo remains stable over time, with little temporal drift. Compared with the autocorrelation tempogram, the Fourier tempogram shows fewer parallel tempo bands and highlights the dominant periodicity more clearly, making it easier to identify the principal tempo of the track.
+
+The intensity of the band is strongest in the first 10–12 seconds, reflecting a higher density of rhythmic onsets during the introduction of the track. After this point the periodic structure remains visible but slightly weaker, suggesting a more consistent groove once the rhythm stabilizes.
+
 ## Clustering
+While the previous sections have analysed three representative tracks in detail, this section looks at the entire corpus of approximately 240. 
+
+In particular tempo provides a useful rythmic dimension for comparing regional scenes.
+```{r}
+#| echo: false
+
+ggplot(CM_corpus, aes(x = tempo)) +
+  geom_histogram(
+    binwidth = 5,
+    fill = "#00b4a2",
+    color = "#0a0c14"
+  ) +
+  labs(
+    title = "Tempo distribution of the corpus",
+    subtitle = "Spotify tempo estimates for the corpus",
+    x = "Tempo (BPM)",
+    y = "Number of tracks"
+  ) +
+  theme_classic() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    axis.title       = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold"),
+    plot.subtitle    = element_text(color = "#f0ecdf")
+  )
+```
+The histogram shows that most tracks cluster in a fairly tight rhythmic zone typical
+of contemporary urbano and reggaeton. Much of the playlist lies roughly between
+90 and 140 BPM, which is consistent with dembow-based rhythmic structures and
+dance-oriented production. At the same time, the spread outside this central range
+suggests hybridisation: some tracks slow down into heavier groove-based zones,
+while others move upward toward faster pop-electronic tempos.
 
 ## Contribution
 :::

@@ -372,9 +372,61 @@ Important
 </div>
 </div>
 </section>
+<section id="rythm-and-tempo-ni-borracho" class="level3">
+<h3 class="anchored" data-anchor-id="rythm-and-tempo-ni-borracho">Rythm and Tempo · NI BORRACHO</h3>
+<p>To extend the temporal analysis beyond structural repetition, I analysed <strong>NI BORRACHO</strong> using a novelty function and two tempograms generated in Sonic Visualiser. These visualisations highlight moments of rhythmic change and reveal how pulse strength is distributed across different tempo levels.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The novelty curve shows rapid frame-level changes in the audio signal. The teal line represents the raw novelty function. In the first seconds of <strong>NI BORRACHO</strong>, the novelty values are dense and high, reflecting frequent rhythmic events associated with percussion and vocal entry. Later sections show fewer spikes,suggesting more stable musical texture.</p>
+<p>Compared to an energy-based novelty function, this spectrum-based novelty curve captures changes in timbre and spectral structure rather than only amplitude. For highly compressed urbano productions, this makes it more reliable for detecting rhythmic events and therefore more useful for beat tracking.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The autocorrelation tempogram allowes us to observe how tempo-related structures evolve over time. Brighter horizontal bands indicate tempi with stronger periodic repetition.</p>
+<p>In the first 30 seconds of “Ni Borracho”, several strong horizontal bands appear between approximately 70 BPM and 150 BPM, indicating a stable rhythmic structure typical of urbano and reggaeton production. The most prominent band occurs around ~90–100 BPM, which likely corresponds to the track’s underlying pulse. Additional bands at higher tempi represent harmonic multiples of the beat (double or triple tempo interpretations).</p>
+<p>The brightness of these bands is strongest during the first 10–15 seconds, suggesting that rhythmic activity and onset density are highest in the introductory section. After this point, the energy becomes more diffuse, indicating a more stable groove where fewer new rhythmic events are introduced.</p>
+<p>Overall, the tempogram shows that the track maintains a consistent tempo structure, with periodicities remaining relatively stable across the analysed time window.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The Fourier tempogram shows the strength of periodicities in the novelty curve using a short-time Fourier transform. Brighter regions indicate tempi where rhythmic periodicities are strongest over time.</p>
+<p>In the first 30 seconds of “Ni Borracho”, the most prominent band appears around 150 BPM, indicating a strong and stable rhythmic periodicity at this tempo. This likely corresponds to the perceived pulse of the track or a metrical subdivision of the main beat, which is common in urbano and reggaeton rhythms where the perceived beat may be interpreted at multiple metrical levels.</p>
+<p>The strong horizontal structure indicates that the tempo remains stable over time, with little temporal drift. Compared with the autocorrelation tempogram, the Fourier tempogram shows fewer parallel tempo bands and highlights the dominant periodicity more clearly, making it easier to identify the principal tempo of the track.</p>
+<p>The intensity of the band is strongest in the first 10–12 seconds, reflecting a higher density of rhythmic onsets during the introduction of the track. After this point the periodic structure remains visible but slightly weaker, suggesting a more consistent groove once the rhythm stabilizes.</p>
+</section>
 </div>
 <div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
-
+<p>While the previous sections have analysed three representative tracks in detail, this section looks at the entire corpus of approximately 240.</p>
+<p>In particular tempo provides a useful rythmic dimension for comparing regional scenes.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram shows that most tracks cluster in a fairly tight rhythmic zone typical of contemporary urbano and reggaeton. Much of the playlist lies roughly between 90 and 140 BPM, which is consistent with dembow-based rhythmic structures and dance-oriented production. At the same time, the spread outside this central range suggests hybridisation: some tracks slow down into heavier groove-based zones, while others move upward toward faster pop-electronic tempos.</p>
 </div>
 <div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
 
