@@ -11,6 +11,8 @@ format:
 #| include: false
 library(tidyverse)
 library(compmus)
+library(tidymodels)
+library(ranger)
 
 CM_corpus <- read_csv("canciones/CM_corpus.csv", show_col_types = FALSE)
 
@@ -36,6 +38,7 @@ malamente_timbre <- read_csv('canciones/malamente_timbre.csv',
 niBorracho_novelty <- read_csv("canciones/niBorracho_novelty.csv", show_col_types = FALSE)
 niBorracho_act <- read_csv("canciones/niBorracho_act.csv", show_col_types = FALSE)
 niBorracho_dft <- read_csv("canciones/niBorracho_dft.csv", show_col_types = FALSE)
+
 # Shared plot theme
 atlas_theme <- function() {
   theme_classic() +
@@ -104,8 +107,48 @@ between Caribbean reggaeton and mainland Spanish urban pop.
 Rather than assuming genre boundaries, the study explores how urban music 
 ecosystems diverge or converge across space within the global streaming era.
 
+> *Are there measurable stylistic differences across regions?*
+
 ## Track Features
 
+In particular tempo provides a useful rythmic dimension for comparing regional scenes.
+
+```{r}
+#| echo: false
+
+ggplot(CM_corpus, aes(x = tempo)) +
+  geom_histogram(
+    binwidth = 5,
+    fill = "#00b4a2",
+    color = "#0a0c14"
+  ) +
+  labs(
+    title = "Tempo distribution of the corpus",
+    subtitle = "Spotify tempo estimates for the corpus",
+    x = "Tempo (BPM)",
+    y = "Number of tracks"
+  ) +
+  theme_classic() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    axis.title       = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold"),
+    plot.subtitle    = element_text(color = "#f0ecdf")
+  )
+```
+
+The histogram shows that most tracks cluster in a fairly tight rhythmic zone typical
+of contemporary urbano and reggaeton. Much of the playlist lies roughly between
+90 and 140 BPM, which is consistent with dembow-based rhythmic structures and
+dance-oriented production. At the same time, the spread outside this central range
+suggests hybridisation: some tracks slow down into heavier groove-based zones,
+while others move upward toward faster pop-electronic tempos.
 
 ## Chroma Features
 
@@ -615,45 +658,141 @@ The strong horizontal structure indicates that the tempo remains stable over tim
 
 The intensity of the band is strongest in the first 10–12 seconds, reflecting a higher density of rhythmic onsets during the introduction of the track. After this point the periodic structure remains visible but slightly weaker, suggesting a more consistent groove once the rhythm stabilizes.
 
-## Clustering
-While the previous sections have analysed three representative tracks in detail, this section looks at the entire corpus of approximately 240. 
+## Classification of regional styles
+While the previous sections have analysed three representative tracks in detail, 
+this section looks at the entire corpus of approximately 240. 
 
-In particular tempo provides a useful rythmic dimension for comparing regional scenes.
+The selection of features for the classifier is informed by the preceding
+analyses of chroma, timbre, and temporal structure. These visualisations
+suggest that while tempo and rhythmic regularity are broadly shared across
+regions, differences emerge more clearly in timbral texture and harmonic
+behaviour.
+
+Because chromagram, MFCC, and tempogram features are not available for the
+entire corpus, Spotify audio features are used as proxies. In particular,
+variables such as acousticness, energy, loudness, and valence capture aspects
+of timbre and harmonic character, while danceability and speechiness reflect
+rhythmic structure.
+
+The classifier therefore tests whether these feature proxies are sufficient
+to distinguish regional styles at the corpus level.
+
 ```{r}
 #| echo: false
+# labels for classification
+artist_region <- tribble(
+  ~artist_primary, ~region,
+  "Bad Bunny", "Puerto Rico",
+  "Rauw Alejandro", "Puerto Rico",
+  "Omar Courtz", "Puerto Rico",
+  "Quevedo", "Canary Islands",
+  "Cruz Cafuné", "Canary Islands",
+  "La Pantera", "Canary Islands",
+  "Lucho RK", "Canary Islands",
+  "Juseph", "Canary Islands",
+  "Omar Montes", "Mainland Spain",
+  "C. Tangana", "Mainland Spain",
+  "ROSALÍA", "Mainland Spain",
+  "rusowsky", "Mainland Spain"
+)
 
-ggplot(CM_corpus, aes(x = tempo)) +
-  geom_histogram(
-    binwidth = 5,
-    fill = "#00b4a2",
-    color = "#0a0c14"
-  ) +
+CM_corpus <- CM_corpus |>
+  mutate(
+    artist_list = str_split(artist_name_s, ";\\s*")
+  ) |>
+  rowwise() |>
+  mutate(
+    region = {
+      matched <- artist_region |>
+        filter(artist_primary %in% artist_list)
+      
+      if (nrow(matched) == 0) {
+        NA_character_
+      } else {
+        matched$region[1]
+      }
+    }
+  ) |>
+  ungroup() |>
+  mutate(
+    region = factor(
+      region,
+      levels = c("Puerto Rico", "Canary Islands", "Mainland Spain")
+    )
+  )
+
+model_features <- c(
+  "danceability", "energy", "loudness", "speechiness",
+  "acousticness", "instrumentalness", "liveness",
+  "valence", "tempo"
+)
+
+model_data <- CM_corpus |>
+  select(region, all_of(model_features)) |>
+  drop_na()
+
+count(CM_corpus, region) |>
+  ggplot(aes(x = region, y = n, fill = region)) +
+  geom_col(width = 0.6) +
+  geom_text(aes(label = n), vjust = -0.5, color = "#f0ecdf") +
+  scale_fill_manual(values = c(
+    "Puerto Rico" = "#00b4a2",
+    "Canary Islands" = "#f5c842",
+    "Mainland Spain" = "#d62839"
+  )) +
   labs(
-    title = "Tempo distribution of the corpus",
-    subtitle = "Spotify tempo estimates for the corpus",
-    x = "Tempo (BPM)",
+    title = "Corpus balance by region",
+    x = NULL,
     y = "Number of tracks"
   ) +
-  theme_classic() +
-  theme(
-    plot.background  = element_rect(fill = "#0a0c14", color = NA),
-    panel.background = element_rect(fill = "#12152a", color = NA),
-    panel.grid       = element_blank(),
-    axis.line        = element_line(color = "#252a4a"),
-    axis.ticks       = element_line(color = "#252a4a"),
-    text             = element_text(color = "#f0ecdf"),
-    axis.text        = element_text(color = "#8888aa"),
-    axis.title       = element_text(color = "#8888aa"),
-    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold"),
-    plot.subtitle    = element_text(color = "#f0ecdf")
-  )
+  atlas_theme() +
+  theme(legend.position = "none")
 ```
-The histogram shows that most tracks cluster in a fairly tight rhythmic zone typical
-of contemporary urbano and reggaeton. Much of the playlist lies roughly between
-90 and 140 BPM, which is consistent with dembow-based rhythmic structures and
-dance-oriented production. At the same time, the spread outside this central range
-suggests hybridisation: some tracks slow down into heavier groove-based zones,
-while others move upward toward faster pop-electronic tempos.
+The corpus remains broadly balanced across the three regions, with only minor 
+differences resulting from the inclusion of collaborative tracks. This confirms 
+that no single region dominates the dataset, ensuring that the classification 
+model is not biased toward a particular group. The slight variations also 
+reflect the collaborative nature of urbano production, where artists frequently 
+work across regional boundaries.
+
+
+```{r}
+#| echo: false
+set.seed(123)
+
+data_split <- initial_split(model_data, prop = 0.8, strata = region)
+train_data <- training(data_split)
+test_data  <- testing(data_split)
+
+# random forest classifier
+rf_spec <- rand_forest(
+  trees = 500,
+  mtry = 3,
+  min_n = 5
+) |>
+  set_engine("ranger", importance = "impurity") |>
+  set_mode("classification")
+
+rf_recipe <- recipe(region ~ ., data = train_data)
+
+rf_workflow <- workflow() |>
+  add_model(rf_spec) |>
+  add_recipe(rf_recipe)
+
+rf_fit <- fit(rf_workflow, data = train_data)
+
+rf_pred <- predict(rf_fit, test_data) |>
+  bind_cols(test_data |> select(region))
+```
+
+```{r}
+rf_metrics <- rf_pred |>
+  metrics(truth = region, estimate = .pred_class)
+
+rf_metrics
+```
+
+
 
 ## Contribution
 :::
