@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>Spanish-language urban music (2015–2025) across three geographic contexts.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Background</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Track Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Chroma Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Timbre Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Temporal Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">Clustering</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false" href="">Contribution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Background</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Track Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Chroma Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Timbre Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Temporal Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">Classification of regional styles</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false" href="">Contribution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <iframe src="https://open.spotify.com/embed/playlist/0Z93ne5Yrdqr1hLlRqF7hq" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media" style="border-radius: 12px;">
@@ -78,9 +78,22 @@ ul.task-list li input[type="checkbox"] {
 <p>This corpus examines Spanish-language urban music (2015–2025) across three geographic contexts: Puerto Rico, the Canary Islands, and mainland Spain. Puerto Rico represents the birthplace of reggaeton and a central node of Caribbean urban production. Mainland Spain represents a European market in which urban styles have hybridised with pop, flamenco, and experimental influences. The Canary Islands occupy a unique Atlantic position: politically Spanish yet historically and culturally connected to Latin America and geographically closer to Africa.</p>
 <p>The corpus includes approximately 240 tracks drawn from representative artists in each region, balancing reggaeton-focused performers with hybrid urban artists. By analysing Spotify track-level audio features, I want to investigate whether measurable stylistic differences reflect proximity to the Caribbean. In particular, whether Canary Islands urbano occupies an intermediate position between Caribbean reggaeton and mainland Spanish urban pop.</p>
 <p>Rather than assuming genre boundaries, the study explores how urban music ecosystems diverge or converge across space within the global streaming era.</p>
+<blockquote class="blockquote">
+<p><em>Are there measurable stylistic differences across regions?</em></p>
+</blockquote>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-
+<p>In particular tempo provides a useful rythmic dimension for comparing regional scenes.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram shows that most tracks cluster in a fairly tight rhythmic zone typical of contemporary urbano and reggaeton. Much of the playlist lies roughly between 90 and 140 BPM, which is consistent with dembow-based rhythmic structures and dance-oriented production. At the same time, the spread outside this central range suggests hybridisation: some tracks slow down into heavier groove-based zones, while others move upward toward faster pop-electronic tempos.</p>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>These three chromagrams represent the pitch-class energy over time for three culturally rooted tracks from each region.</p>
@@ -93,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -108,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -123,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -143,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -167,7 +180,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -191,7 +204,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -218,7 +231,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -229,7 +242,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -240,7 +253,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -258,10 +271,10 @@ Note
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -298,10 +311,10 @@ Important
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -338,10 +351,10 @@ Important
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -379,7 +392,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -390,7 +403,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -403,7 +416,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -415,18 +428,555 @@ Important
 </section>
 </div>
 <div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
-<p>While the previous sections have analysed three representative tracks in detail, this section looks at the entire corpus of approximately 240.</p>
-<p>In particular tempo provides a useful rythmic dimension for comparing regional scenes.</p>
+<p>While the previous sections analysed three representative tracks in detail, this section scales up to the entire corpus of approximately 240 tracks. The goal is to test whether Spotify audio features alone are sufficient to distinguish regional styles, and if so, which features carry the most discriminating power.</p>
+<p>A <strong>Random Forest classifier</strong> is trained to predict region (Puerto Rico, Canary Islands, or Mainland Spain) from nine Spotify audio features: danceability, energy, loudness, speechiness, acousticness, instrumentalness, liveness, valence, and tempo.</p>
+<p>Random Forest was chosen because it handles correlated features naturally — energy and loudness are known to co-vary — and because its feature importance output connects directly back to the acoustic analyses in earlier sections. To reduce overfitting on the small dataset, trees are constrained with <code>min_n = 40</code>, and <code>mtry</code> is tuned via grid search across five values. The classifier is evaluated using <strong>5-fold cross-validation</strong>, with 33% accuracy representing the random guessing baseline across three equally sized classes.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The histogram shows that most tracks cluster in a fairly tight rhythmic zone typical of contemporary urbano and reggaeton. Much of the playlist lies roughly between 90 and 140 BPM, which is consistent with dembow-based rhythmic structures and dance-oriented production. At the same time, the spread outside this central range suggests hybridisation: some tracks slow down into heavier groove-based zones, while others move upward toward faster pop-electronic tempos.</p>
+<p>The corpus remains broadly balanced across the three regions, with only minor differences resulting from the inclusion of collaborative tracks. This confirms that no single region dominates the dataset, ensuring that the classification model is not biased toward a particular group. The slight variations also reflect the collaborative nature of urbano production, where artists frequently work across regional boundaries.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="xikxkdgxrk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xikxkdgxrk table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xikxkdgxrk thead, #xikxkdgxrk tbody, #xikxkdgxrk tfoot, #xikxkdgxrk tr, #xikxkdgxrk td, #xikxkdgxrk th {
+  border-style: none;
+}
+
+#xikxkdgxrk p {
+  margin: 0;
+  padding: 0;
+}
+
+#xikxkdgxrk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #1F2B47;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #F5C842;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xikxkdgxrk .gt_title {
+  color: #FFFFFF;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #1F2B47;
+  border-bottom-width: 0;
+}
+
+#xikxkdgxrk .gt_subtitle {
+  color: #FFFFFF;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #1F2B47;
+  border-top-width: 0;
+}
+
+#xikxkdgxrk .gt_heading {
+  background-color: #1F2B47;
+  text-align: center;
+  border-bottom-color: #1F2B47;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_col_heading {
+  color: #FFFFFF;
+  background-color: #16213E;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xikxkdgxrk .gt_column_spanner_outer {
+  color: #FFFFFF;
+  background-color: #16213E;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xikxkdgxrk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xikxkdgxrk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xikxkdgxrk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xikxkdgxrk .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xikxkdgxrk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #FFFFFF;
+  background-color: #1F2B47;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xikxkdgxrk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #FFFFFF;
+  background-color: #1F2B47;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xikxkdgxrk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xikxkdgxrk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xikxkdgxrk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xikxkdgxrk .gt_stub {
+  color: #FFFFFF;
+  background-color: #1F2B47;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xikxkdgxrk .gt_stub_row_group {
+  color: #FFFFFF;
+  background-color: #1F2B47;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xikxkdgxrk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xikxkdgxrk .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xikxkdgxrk .gt_summary_row {
+  color: #FFFFFF;
+  background-color: #1F2B47;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xikxkdgxrk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xikxkdgxrk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_grand_summary_row {
+  color: #FFFFFF;
+  background-color: #1F2B47;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xikxkdgxrk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xikxkdgxrk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_footnotes {
+  color: #FFFFFF;
+  background-color: #1F2B47;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xikxkdgxrk .gt_sourcenotes {
+  color: #FFFFFF;
+  background-color: #1F2B47;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xikxkdgxrk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xikxkdgxrk .gt_left {
+  text-align: left;
+}
+
+#xikxkdgxrk .gt_center {
+  text-align: center;
+}
+
+#xikxkdgxrk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xikxkdgxrk .gt_font_normal {
+  font-weight: normal;
+}
+
+#xikxkdgxrk .gt_font_bold {
+  font-weight: bold;
+}
+
+#xikxkdgxrk .gt_font_italic {
+  font-style: italic;
+}
+
+#xikxkdgxrk .gt_super {
+  font-size: 65%;
+}
+
+#xikxkdgxrk .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xikxkdgxrk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xikxkdgxrk .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xikxkdgxrk .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xikxkdgxrk .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xikxkdgxrk .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xikxkdgxrk .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#xikxkdgxrk .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#xikxkdgxrk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="Metric" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="color: #F5C842; font-family: 'Bebas Neue'" scope="col">Metric</th>
+<th id="Mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #F5C842; font-family: 'Bebas Neue'" scope="col">Mean</th>
+<th id="a±SE" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="color: #F5C842; font-family: 'Bebas Neue'" scope="col">±SE</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Metric" style="color: #F0ECDF">Accuracy</td>
+<td class="gt_row gt_right" headers="Mean" style="color: #00B4A2; font-weight: bold">0.591</td>
+<td class="gt_row gt_right" headers="±SE" style="color: #00B4A2; font-weight: bold">0.030</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Metric" style="color: #F0ECDF">Cohen's κ</td>
+<td class="gt_row gt_right" headers="Mean" style="color: #00B4A2; font-weight: bold">0.386</td>
+<td class="gt_row gt_right" headers="±SE" style="color: #00B4A2; font-weight: bold">0.045</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The tuned model achieves a cross-validated accuracy of <strong>59.1%</strong> (κ = 0.386, ±0.030), nearly double the 33% random baseline. The moderate κ score reflects genuine predictive signal while honestly acknowledging the difficulty of distinguishing regional variants of the same genre from Spotify features.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Training accuracy: 0.8 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>CV accuracy:       0.591 ± 0.03</code></pre>
+</div>
+</div>
+<p>The training accuracy of <strong>80%</strong> against a CV accuracy of <strong>59.1%</strong> represents a considerably healthier gap than an unconstrained model. Setting <code>min_n = 40</code> forces shallower trees, successfully reducing memorisation. The remaining 20-point gap is expected given that the training set contains roughly 60 examples per class, some fitting to noise is unavoidable at this scale. What matters is that the CV accuracy is stable across folds (±0.030), confirming that 59% generalisation performance is reliable and consistent rather than a product of a lucky data split.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The confusion matrix shows evenly distributed errors across all three regions, a direct consequence of the shallower trees from <code>min_n = 40</code>. Puerto Rico is harder to classify correctly (9/21), while Canary Islands and Mainland Spain remain similarly difficult (9/16 and 8/16 respectively). The spread of errors across all three regions confirms that no single region is acoustically well-separated from the others — the model is not simply learning one easy distinction but struggling equally with all three boundaries.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Acousticness</strong> remains the single most discriminating feature, followed closely by <strong>loudness</strong>, which has risen above energy compared to earlier model configurations. This is consistent with Malamente’s distinctively quieter, acoustic production contrasting sharply with the heavily compressed loudness of reggaeton and Canarian urbano. <strong>Tempo</strong> ranks last, which is particularly striking given that tempo is a defining structural element of reggaeton, the dembow rhythm operates at a very specific BPM range. However, because Canarian urbano and mainland Spanish urban pop have both converged toward similar tempo zones in the streaming era, all three regions end up sharing the same rhythmic pace. Tempo therefore carries strong musical meaning within reggaeton but no <em>regional</em> discriminating power across this corpus, which is exactly what the tempo histogram in the Track Features tab showed.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The PCA scatter remains consistent with the classification results. Puerto Rico shows the clearest outliers along PC1, representing its most distinctively Caribbean tracks. Canary Islands and Mainland Spain ellipses overlap almost completely, explaining why these two regions generate the most confusion in the classifier. The heavy three-way overlap in the centre of the plot is the visual equivalent of the 59% accuracy ceiling for the majority of the corpus, regional style simply cannot be recovered from Spotify features alone.</p>
+<hr>
+<section id="what-the-classifier-tells-us" class="level3">
+<h3 class="anchored" data-anchor-id="what-the-classifier-tells-us">What the classifier tells us</h3>
+<p>The Random Forest analysis confirms the hypothesis of this corpus study: <strong>Canary Islands urbano does not occupy a clean intermediate position between Caribbean reggaeton and Peninsular Spanish pop: it leans Caribbean.</strong> The classifier struggles most to separate Canary Islands from Puerto Rico acoustically, while Mainland Spain is distinguishable primarily through its higher acousticness driven by flamenco-rooted production.</p>
+<p>A 59% accuracy ceiling is not a failure. It is the quantitative expression of what the chromagram, cepstrogram, and self-similarity analyses all suggested qualitatively: that these three regional styles share enough common ground in the global streaming era that no single set of audio features can cleanly separate them. The features that <em>do</em> discriminate (acousticness, loudness, energy) map directly onto the timbral differences identified in earlier sections, giving the classification results musical meaning beyond the numbers.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Limitation:</strong> With approximately 20 tracks per artist, the corpus size constrains classification performance. A broader corpus with more tracks per region would likely improve generalisation, but risks introducing stylistic noise if artist selection is not carefully controlled. The classifier should therefore be read as exploratory evidence rather than a definitive acoustic boundary between regions.</p>
+</div>
+</div>
+</section>
 </div>
 <div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
 

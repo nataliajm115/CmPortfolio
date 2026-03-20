@@ -13,6 +13,10 @@ library(tidyverse)
 library(compmus)
 library(tidymodels)
 library(ranger)
+library(vip)
+library(yardstick)
+library(gt
+        )
 
 CM_corpus <- read_csv("canciones/CM_corpus.csv", show_col_types = FALSE)
 
@@ -659,23 +663,21 @@ The strong horizontal structure indicates that the tempo remains stable over tim
 The intensity of the band is strongest in the first 10–12 seconds, reflecting a higher density of rhythmic onsets during the introduction of the track. After this point the periodic structure remains visible but slightly weaker, suggesting a more consistent groove once the rhythm stabilizes.
 
 ## Classification of regional styles
-While the previous sections have analysed three representative tracks in detail, 
-this section looks at the entire corpus of approximately 240. 
 
-The selection of features for the classifier is informed by the preceding
-analyses of chroma, timbre, and temporal structure. These visualisations
-suggest that while tempo and rhythmic regularity are broadly shared across
-regions, differences emerge more clearly in timbral texture and harmonic
-behaviour.
+While the previous sections analysed three representative tracks in detail,
+this section scales up to the entire corpus of approximately 240 tracks.
+The goal is to test whether Spotify audio features alone are sufficient to
+distinguish regional styles, and if so, which features carry the most discriminating power.
 
-Because chromagram, MFCC, and tempogram features are not available for the
-entire corpus, Spotify audio features are used as proxies. In particular,
-variables such as acousticness, energy, loudness, and valence capture aspects
-of timbre and harmonic character, while danceability and speechiness reflect
-rhythmic structure.
+A **Random Forest classifier** is trained to predict region (Puerto Rico,
+Canary Islands, or Mainland Spain) from nine Spotify audio features:
+danceability, energy, loudness, speechiness, acousticness,
+instrumentalness, liveness, valence, and tempo. 
 
-The classifier therefore tests whether these feature proxies are sufficient
-to distinguish regional styles at the corpus level.
+Random Forest was chosen because it handles correlated features naturally — energy and loudness are known to co-vary — and because its feature importance output connects directly back to the acoustic analyses in earlier sections. To reduce overfitting on the small dataset, trees are constrained with `min_n = 40`,
+and `mtry` is tuned via grid search across five values. The classifier is
+evaluated using **5-fold cross-validation**, with 33% accuracy representing
+the random guessing baseline across three equally sized classes.
 
 ```{r}
 #| echo: false
@@ -755,44 +757,231 @@ model is not biased toward a particular group. The slight variations also
 reflect the collaborative nature of urbano production, where artists frequently 
 work across regional boundaries.
 
-
 ```{r}
 #| echo: false
+#| warning: false
+
+# Cross-validation
 set.seed(123)
-
-data_split <- initial_split(model_data, prop = 0.8, strata = region)
-train_data <- training(data_split)
-test_data  <- testing(data_split)
-
-# random forest classifier
 rf_spec <- rand_forest(
   trees = 500,
-  mtry = 3,
-  min_n = 5
+  mtry  = tune(),
+  min_n = 40
 ) |>
   set_engine("ranger", importance = "impurity") |>
   set_mode("classification")
+rf_recipe   <- recipe(region ~ ., data = model_data)
+rf_workflow <- workflow() |> add_model(rf_spec) |> add_recipe(rf_recipe)
+rf_grid <- grid_regular(
+  mtry(range  = c(2, 6)),
+  levels = 5
+)
+cv_folds <- vfold_cv(model_data, v = 5, strata = region)
+rf_tune <- tune_grid(
+  rf_workflow,
+  resamples = cv_folds,
+  grid      = rf_grid,
+  metrics   = metric_set(accuracy, kap)
+)
+best_params       <- select_best(rf_tune, metric = "accuracy")
+rf_final_workflow <- finalize_workflow(rf_workflow, best_params)
+data_split        <- initial_split(model_data, prop = 0.8, strata = region)
+rf_fit            <- fit(rf_final_workflow, data = training(data_split))
 
-rf_recipe <- recipe(region ~ ., data = train_data)
-
-rf_workflow <- workflow() |>
-  add_model(rf_spec) |>
-  add_recipe(rf_recipe)
-
-rf_fit <- fit(rf_workflow, data = train_data)
-
-rf_pred <- predict(rf_fit, test_data) |>
-  bind_cols(test_data |> select(region))
+show_best(rf_tune, metric = "accuracy", n = 1) |>
+  bind_rows(show_best(rf_tune, metric = "kap", n = 1)) |>
+  select(.metric, mean, std_err) |>
+  mutate(
+    .metric = recode(.metric, "accuracy" = "Accuracy", "kap" = "Cohen's κ"),
+    across(c(mean, std_err), ~ round(.x, 3))
+  ) |>
+  rename(Metric = .metric, Mean = mean, `±SE` = std_err) |>
+  gt() |>
+  tab_options(
+    table.background.color         = "#1f2b47",
+    column_labels.background.color = "#16213e",
+    table.border.top.color         = "#f5c842",
+    table.border.top.width         = px(3)
+  ) |>
+  tab_style(
+    style     = cell_text(color = "#f5c842", font = "Bebas Neue"),
+    locations = cells_column_labels()
+  ) |>
+  tab_style(
+    style     = cell_text(color = "#f0ecdf"),
+    locations = cells_body(columns = Metric)
+  ) |>
+  tab_style(
+    style     = cell_text(color = "#00b4a2", weight = "bold"),
+    locations = cells_body(columns = c(Mean, `±SE`))
+  )
+  
 ```
+
+The tuned model achieves a cross-validated accuracy of **59.1%** 
+(κ = 0.386, ±0.030), nearly double the 33% random baseline. The moderate 
+κ score reflects genuine predictive signal while honestly acknowledging 
+the difficulty of distinguishing regional variants of the same genre from  Spotify features.
 
 ```{r}
-rf_metrics <- rf_pred |>
-  metrics(truth = region, estimate = .pred_class)
+#| echo: false
+# Training accuracy vs CV accuracy comparison
+train_pred <- predict(rf_fit, training(data_split)) |>
+  bind_cols(training(data_split) |> select(region))
 
-rf_metrics
+train_acc <- accuracy(train_pred, truth = region, estimate = .pred_class)
+cv_acc <- show_best(rf_tune, metric = "accuracy", n = 1)
+
+cat("Training accuracy:", round(train_acc$.estimate, 3), "\n")
+cat("CV accuracy:      ", round(cv_acc$mean, 3), "±", round(cv_acc$std_err, 3))
 ```
 
+The training accuracy of **80%** against a CV accuracy of **59.1%** 
+represents a considerably healthier gap than an unconstrained model. Setting `min_n = 40` forces shallower trees, successfully reducing memorisation. The remaining 20-point gap is expected given that the training 
+set contains roughly 60 examples per class, some fitting to noise is 
+unavoidable at this scale. What matters is that the CV accuracy is stable 
+across folds (±0.030), confirming that 59% generalisation performance is 
+reliable and consistent rather than a product of a lucky data split.
 
+```{r}
+#| echo: false
+#| warning: false
+# Confusion matrix
+rf_pred    <- predict(rf_fit, testing(data_split)) |>
+              bind_cols(testing(data_split) |> select(region))
+
+conf_mat(rf_pred, truth = region, estimate = .pred_class) |>
+  autoplot(type = "heatmap") +
+  scale_fill_gradient(low = "#12152a", high = "#f5c842") +
+  labs(title = "Confusion Matrix — Regional Classifier") +
+  theme_classic() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    text      = element_text(color = "#f0ecdf"),
+    axis.text = element_text(color = "#f0ecdf", size = 11),
+    axis.title = element_text(color = "#8888aa"),
+    plot.title = element_text(color = "#f5c842", size = 14, face = "bold"),
+    legend.background = element_rect(fill = "#12152a", color = NA),
+    legend.text  = element_text(color = "#f0ecdf"),
+    legend.title = element_text(color = "#f5c842")
+  )
+```
+
+The confusion matrix shows evenly distributed errors across all three 
+regions, a direct consequence of the shallower trees from `min_n = 40`. 
+Puerto Rico is harder to classify correctly (9/21), while Canary Islands 
+and Mainland Spain remain similarly difficult (9/16 and 8/16 respectively). 
+The spread of errors across all three regions confirms that no single region 
+is acoustically well-separated from the others — the model is not simply 
+learning one easy distinction but struggling equally with all three boundaries.
+
+```{r}
+#| echo: false
+#| warning: false
+# Feature importance
+rf_fit |>
+  extract_fit_parsnip() |>
+  vip(num_features = 9, aesthetics = list(fill = "#00b4a2")) +
+  labs(
+    title    = "Feature Importance — Random Forest",
+    subtitle = "Mean decrease in node impurity (Gini)",
+    x = NULL, y = "Importance"
+  ) +
+  coord_flip() +
+  theme_classic() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid  = element_blank(),
+    axis.line   = element_line(color = "#252a4a"),
+    axis.ticks  = element_line(color = "#252a4a"),
+    text        = element_text(color = "#f0ecdf"),
+    axis.text   = element_text(color = "#f0ecdf", size = 11),
+    axis.title  = element_text(color = "#8888aa"),
+    plot.title  = element_text(color = "#f5c842", size = 14, face = "bold"),
+    plot.subtitle = element_text(color = "#f0ecdf"),
+    legend.position = "none"
+  )
+```
+**Acousticness** remains the single most discriminating feature, followed 
+closely by **loudness**, which has risen above energy compared to earlier 
+model configurations. This is consistent with Malamente's distinctively 
+quieter, acoustic production contrasting sharply with the heavily compressed 
+loudness of reggaeton and Canarian urbano. **Tempo** ranks last, which is 
+particularly striking given that tempo is a defining structural element of 
+reggaeton, the dembow rhythm operates at a very specific BPM range. However, 
+because Canarian urbano and mainland Spanish urban pop have both converged 
+toward similar tempo zones in the streaming era, all three regions end up 
+sharing the same rhythmic pace. Tempo therefore carries strong musical 
+meaning within reggaeton but no *regional* discriminating power across this 
+corpus, which is exactly what the tempo histogram in the Track Features tab 
+showed.
+
+```{r}
+#| echo: false
+#| warning: false
+# ── PCA scatter ───────────────────────────────────────────────────────────
+pca_baked <- recipe(region ~ ., data = model_data) |>
+  step_normalize(all_predictors()) |>
+  step_pca(all_predictors(), num_comp = 2) |>
+  prep() |>
+  bake(new_data = NULL)
+
+ggplot(pca_baked, aes(x = PC1, y = PC2, color = region)) +
+  geom_point(alpha = 0.7, size = 3) +
+  stat_ellipse(aes(group = region), linewidth = 0.8, linetype = "dashed") +
+  scale_color_manual(values = c(
+    "Puerto Rico"    = "#00b4a2",
+    "Canary Islands" = "#f5c842",
+    "Mainland Spain" = "#d62839"
+  )) +
+  labs(
+    title    = "PCA of Spotify Features by Region",
+    subtitle = "Dashed ellipses = 95% confidence regions",
+    x = "PC1", y = "PC2", color = NULL
+  ) +
+  atlas_theme() +
+  theme(legend.position = "bottom")
+```
+
+The PCA scatter remains consistent with the classification results. Puerto 
+Rico shows the clearest outliers along PC1, representing its most 
+distinctively Caribbean tracks. Canary Islands and Mainland Spain ellipses 
+overlap almost completely, explaining why these two regions generate the most 
+confusion in the classifier. The heavy three-way overlap in the centre of the 
+plot is the visual equivalent of the 59% accuracy ceiling for the majority 
+of the corpus, regional style simply cannot be recovered from Spotify features 
+alone.
+
+---
+
+### What the classifier tells us
+
+The Random Forest analysis confirms the  hypothesis of this corpus 
+study: 
+**Canary Islands urbano does not occupy a clean intermediate position between Caribbean reggaeton and Peninsular Spanish pop: it leans Caribbean.**
+The classifier struggles most to separate Canary Islands from Puerto Rico 
+acoustically, while Mainland Spain is distinguishable primarily through its 
+higher acousticness driven by flamenco-rooted production.
+
+A 59% accuracy ceiling is not a failure. It is the quantitative expression 
+of what the chromagram, cepstrogram, and self-similarity analyses all 
+suggested qualitatively: that these three regional styles share enough 
+common ground in the global streaming era that no single set of audio 
+features can cleanly separate them. The features that *do* discriminate
+(acousticness, loudness, energy) map directly onto the timbral differences 
+identified in earlier sections, giving the classification results musical 
+meaning beyond the numbers.
+
+::: {.callout-note}
+**Limitation:** With approximately 20 tracks per artist, the corpus size 
+constrains classification performance. A broader corpus with more tracks 
+per region would likely improve generalisation, but risks introducing 
+stylistic noise if artist selection is not carefully controlled. The 
+classifier should therefore be read as exploratory evidence rather than 
+a definitive acoustic boundary between regions.
+:::
 
 ## Contribution
 :::
