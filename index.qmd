@@ -16,8 +16,7 @@ library(tidymodels)
 library(ranger)
 library(vip)
 library(yardstick)
-library(gt
-        )
+library(gt)
 
 CM_corpus <- read_csv("canciones/CM_corpus.csv", show_col_types = FALSE)
 
@@ -77,6 +76,54 @@ long_tempogram <- function(df) {
     ) |>
     rename(TIME = all_of(time_col))
 }
+
+# labels for regions
+artist_region <- tribble(
+  ~artist_primary, ~region,
+  "Bad Bunny", "Puerto Rico",
+  "Rauw Alejandro", "Puerto Rico",
+  "Omar Courtz", "Puerto Rico",
+  "Quevedo", "Canary Islands",
+  "Cruz Cafuné", "Canary Islands",
+  "La Pantera", "Canary Islands",
+  "Lucho RK", "Canary Islands",
+  "Juseph", "Canary Islands",
+  "Omar Montes", "Mainland Spain",
+  "C. Tangana", "Mainland Spain",
+  "ROSALÍA", "Mainland Spain",
+  "rusowsky", "Mainland Spain"
+)
+
+CM_corpus <- CM_corpus |>
+  mutate(
+    artist_list = str_split(artist_name_s, ";\\s*")
+  ) |>
+  rowwise() |>
+  mutate(
+    region = {
+      matched <- artist_region |>
+        filter(artist_primary %in% artist_list)
+      
+      if (nrow(matched) == 0) {
+        NA_character_
+      } else {
+        matched$region[1]
+      }
+    }
+  ) |>
+  ungroup() |>
+  mutate(
+    region = factor(
+      region,
+      levels = c("Puerto Rico", "Canary Islands", "Mainland Spain")
+    )
+  )
+
+region_colours <- c(
+  "Puerto Rico"    = "#00b4a2",
+  "Canary Islands" = "#f5c842",
+  "Mainland Spain" = "#d62839"
+)
 ```
 
 ::: hero-banner
@@ -99,15 +146,18 @@ style="border-radius: 12px;"></iframe>
 Nowadays, there is a rise in popularity of Canarian music across Spain, and with 
 it, a recurring debate in music criticism and on social media, *are artists like* 
 *Quevedo genuinely expressing an Atlantic identity rooted in the Canary* 
-*Islands, or are they simply mimicking Puerto Rican reggaeton?* This portfolio 
-takes that question seriously and tries to answer it with data rather than 
-opinion.
+*Islands, or are they simply mimicking Puerto Rican reggaeton?* 
+
+This portfolio takes that question seriously and tries to answer it with data 
+rather than opinion.
 
 It is also worth acknowledging that **reggaeton is culturally Puerto Rican**. 
 The genre was created by Puerto Rican and broader Caribbean communities, and 
 any analysis of its spread must recognise that origin without flattening it into 
-a generic "Latin sound." The goal here is not to claim equivalence between regions,
-but to measure acoustic distance — and to let that distance speak.
+a generic "Latin sound." This connection is not new, Canarian emigration to 
+Cuba, Venezuela, and Puerto Rico over five centuries created a shared *español* 
+*atlántico*. The goal here is not to claim equivalence between regions, but to 
+measure acoustic distance, and to let that distance speak.
 
 > *Is Canarian urbano its own sound or is it just Bad Bunny with a Spanish accent?*
 
@@ -180,44 +230,174 @@ inclusion tests whether Canarian urbano leans toward this end or away from it.
 
 ## Track Features
 
-In particular tempo provides a useful rythmic dimension for comparing regional scenes.
+Three hypotheses guide this section, each testable against the data:
 
+::: {.callout-note}
+**H1 -> Tempo convergence:** Streaming-era production has homogenised tempo across 
+all three regions, so regional origin cannot be recovered from BPM alone.
+
+**H2 —> Danceability floor:** Danceability is uniformly high across the corpus, 
+reflecting the shared dance-oriented production of all three urban scenes.
+
+**H3 —> Canary Islands as Atlantic bridge:** The Canary Islands occupies a 
+measurably intermediate acoustic position between Puerto Rico and Mainland Spain 
+on at least some features, reflecting its dual Atlantic identity.
+:::
+
+---
+
+### Tempo
 ```{r}
 #| echo: false
-
-ggplot(CM_corpus, aes(x = tempo)) +
-  geom_histogram(
-    binwidth = 5,
-    fill = "#00b4a2",
-    color = "#0a0c14"
-  ) +
+#| warning: false
+CM_corpus |>
+  filter(!is.na(region)) |>
+  ggplot(aes(x = tempo, fill = region)) +
+  geom_histogram(binwidth = 5, color = "#0a0c14", alpha = 0.85) +
+  facet_wrap(~region, ncol = 1) +
+  scale_fill_manual(values = region_colours) +
   labs(
-    title = "Tempo distribution of the corpus",
-    subtitle = "Spotify tempo estimates for the corpus",
-    x = "Tempo (BPM)",
-    y = "Number of tracks"
+    title    = "Tempo distribution by region",
+    subtitle = "All three regions share the same rhythmic window",
+    x = "Tempo (BPM)", y = "Tracks"
   ) +
-  theme_classic() +
+  atlas_theme() +
+  theme(legend.position = "none",
+        strip.background = element_rect(fill = "#16213e", color = NA),
+        strip.text = element_text(color = "#f5c842", size = 10, face = "bold"))
+```
+
+Regional medians are nearly identical: Puerto Rico **109 BPM**, Canary Islands 
+**113 BPM**, Mainland Spain **106 BPM**. All three distributions peak in the 
+same 90–140 BPM window. **H1 is confirmed**, tempo carries musical meaning 
+within reggaeton but no regional discriminating power across this corpus.
+
+> Note: The cluster of Puerto Rico tracks above 170 BPM likely reflects Spotify's 
+tendency to estimate dembow rhythms at double their perceived tempo.
+
+---
+
+### Danceability
+```{r}
+#| echo: false
+#| warning: false
+CM_corpus |>
+  filter(!is.na(region)) |>
+  ggplot(aes(x = region, y = danceability, fill = region)) +
+  geom_violin(alpha = 0.75, trim = TRUE, color = NA) +
+  geom_boxplot(width = 0.12, fill = "#0a0c14", color = "#f0ecdf",
+               outlier.size = 1, outlier.alpha = 0.5) +
+  scale_fill_manual(values = region_colours) +
+  labs(
+    title    = "Danceability by region",
+    subtitle = "Medians: PR = 0.69 · CI = 0.68 · Spain = 0.68",
+    x = NULL, y = "Danceability"
+  ) +
+  atlas_theme() +
+  theme(legend.position = "none")
+```
+
+Median danceability is 0.691 for Puerto Rico, 0.680 for the Canary Islands, and 
+0.675 for Mainland Spain: a difference of less than 0.02 across the entire 
+range. **H2 is confirmed.** Danceability is a genre floor, not a regional 
+signature. Urban music is dance music regardless of whether it is produced in 
+San Juan, Las Palmas, or Madrid.
+
+---
+
+### Where the regions actually diverge
+```{r}
+#| echo: false
+#| warning: false
+CM_corpus |>
+  filter(!is.na(region)) |>
+  select(region, valence, energy, acousticness) |>
+  pivot_longer(-region, names_to = "feature", values_to = "value") |>
+  mutate(feature = str_to_title(feature)) |>
+  ggplot(aes(x = region, y = value, fill = region)) +
+  geom_violin(alpha = 0.75, trim = TRUE, color = NA) +
+  geom_boxplot(width = 0.12, fill = "#0a0c14", color = "#f0ecdf",
+               outlier.size = 0.8, outlier.alpha = 0.4) +
+  facet_wrap(~feature, scales = "free_y", nrow = 1) +
+  scale_fill_manual(values = region_colours) +
+  labs(
+    title    = "Feature distributions by region",
+    x = NULL, y = NULL, fill = NULL
+  ) +
+  atlas_theme() +
   theme(
-    plot.background  = element_rect(fill = "#0a0c14", color = NA),
-    panel.background = element_rect(fill = "#12152a", color = NA),
-    panel.grid       = element_blank(),
-    axis.line        = element_line(color = "#252a4a"),
-    axis.ticks       = element_line(color = "#252a4a"),
-    text             = element_text(color = "#f0ecdf"),
-    axis.text        = element_text(color = "#8888aa"),
-    axis.title       = element_text(color = "#8888aa"),
-    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold"),
-    plot.subtitle    = element_text(color = "#f0ecdf")
+    axis.text.x  = element_blank(),
+    axis.ticks.x = element_blank(),
+    legend.position = "bottom",
+    strip.background = element_rect(fill = "#16213e", color = NA),
+    strip.text = element_text(color = "#f5c842", size = 10, face = "bold")
   )
 ```
 
-The histogram shows that most tracks cluster in a fairly tight rhythmic zone typical
-of contemporary urbano and reggaeton. Much of the playlist lies roughly between
-90 and 140 BPM, which is consistent with dembow-based rhythmic structures and
-dance-oriented production. At the same time, the spread outside this central range
-suggests hybridisation: some tracks slow down into heavier groove-based zones,
-while others move upward toward faster pop-electronic tempos.
+Three clear patterns emerge:
+
+- **Acousticness** is the sharpest regional divider. Mainland Spain's median 
+(0.532) is more than double Puerto Rico's (0.235) and the Canary Islands' (0.267). 
+Puerto Rico and the Canary Islands are acoustically indistinguishable here but 
+Mainland Spain is.
+
+- **Valence** tells a more nuanced story. Puerto Rico scores the *lowest* median 
+valence (0.396), reflecting reggaeton's tendency toward dark, minor-key 
+production. The Canary Islands (0.485) and Mainland Spain (0.530) are both 
+higher. On this dimension, the Canary Islands does sit between the two, 
+**partially supporting H3**.
+
+- **Energy** shows Puerto Rico highest (0.679), with the Canary Islands and 
+Mainland Spain nearly tied (0.580 and 0.589). Canarian urbano is not more 
+energetic than Spanish pop, it is the acousticness and loudness, not energy, 
+that separates Puerto Rico from the rest.
+
+---
+
+### The regional fingerprint
+```{r}
+#| echo: false
+#| warning: false
+CM_corpus |>
+  filter(!is.na(region)) |>
+  group_by(region) |>
+  summarise(
+    Valence      = median(valence),
+    Energy       = median(energy),
+    Danceability = median(danceability),
+    Acousticness = median(acousticness),
+    .groups = "drop"
+  ) |>
+  pivot_longer(-region, names_to = "feature", values_to = "value") |>
+  ggplot(aes(x = feature, y = value, color = region, group = region)) +
+  geom_line(linewidth = 1.2, alpha = 0.9) +
+  geom_point(size = 3) +
+  scale_color_manual(values = region_colours) +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(
+    title    = "Regional feature fingerprints",
+    subtitle = "Median Spotify features per region — parallel coordinates",
+    x = NULL, y = "Median value", color = NULL
+  ) +
+  atlas_theme() +
+  theme(legend.position = "bottom")
+```
+
+The parallel coordinates plot summarises the regional fingerprints in one view. 
+The three lines converge at **Danceability** confirming H2. 
+They diverge sharply at **Acousticness**, where Mainland Spain 
+is higher. At **Valence**, the Canary Islands line sits between Puerto Rico 
+and Spain, the clearest visual evidence for H3. The overall picture supports 
+the corpus hypothesis: **these three scenes share a common urban grammar but** 
+**differ in their acoustic texture**, and it is that texture, not rhythm, that 
+carries regional identity.
+
+::: {.callout-important}
+**Assumption:** Regional medians are shaped by artist selection. Omar Montes 
+Latin-influenced pop pushes Mainland Spain's valence upward, Rosalía's flamenco 
+pushes its acousticness up. A different artist selection would change these 
+medians. The patterns are real but not universal.
+:::
 
 ## Chroma Features
 
@@ -746,47 +926,6 @@ the random guessing baseline across three equally sized classes.
 
 ```{r}
 #| echo: false
-# labels for classification
-artist_region <- tribble(
-  ~artist_primary, ~region,
-  "Bad Bunny", "Puerto Rico",
-  "Rauw Alejandro", "Puerto Rico",
-  "Omar Courtz", "Puerto Rico",
-  "Quevedo", "Canary Islands",
-  "Cruz Cafuné", "Canary Islands",
-  "La Pantera", "Canary Islands",
-  "Lucho RK", "Canary Islands",
-  "Juseph", "Canary Islands",
-  "Omar Montes", "Mainland Spain",
-  "C. Tangana", "Mainland Spain",
-  "ROSALÍA", "Mainland Spain",
-  "rusowsky", "Mainland Spain"
-)
-
-CM_corpus <- CM_corpus |>
-  mutate(
-    artist_list = str_split(artist_name_s, ";\\s*")
-  ) |>
-  rowwise() |>
-  mutate(
-    region = {
-      matched <- artist_region |>
-        filter(artist_primary %in% artist_list)
-      
-      if (nrow(matched) == 0) {
-        NA_character_
-      } else {
-        matched$region[1]
-      }
-    }
-  ) |>
-  ungroup() |>
-  mutate(
-    region = factor(
-      region,
-      levels = c("Puerto Rico", "Canary Islands", "Mainland Spain")
-    )
-  )
 
 model_features <- c(
   "danceability", "energy", "loudness", "speechiness",

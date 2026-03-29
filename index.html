@@ -77,8 +77,9 @@ ul.task-list li input[type="checkbox"] {
 </iframe>
 <section id="why-this-corpus" class="level3">
 <h3 class="anchored" data-anchor-id="why-this-corpus">Why this corpus?</h3>
-<p>Nowadays, there is a rise in popularity of Canarian music across Spain, and with it, a recurring debate in music criticism and on social media, <em>are artists like</em> <em>Quevedo genuinely expressing an Atlantic identity rooted in the Canary</em> <em>Islands, or are they simply mimicking Puerto Rican reggaeton?</em> This portfolio takes that question seriously and tries to answer it with data rather than opinion.</p>
-<p>It is also worth acknowledging that <strong>reggaeton is culturally Puerto Rican</strong>. The genre was created by Puerto Rican and broader Caribbean communities, and any analysis of its spread must recognise that origin without flattening it into a generic “Latin sound.” The goal here is not to claim equivalence between regions, but to measure acoustic distance — and to let that distance speak.</p>
+<p>Nowadays, there is a rise in popularity of Canarian music across Spain, and with it, a recurring debate in music criticism and on social media, <em>are artists like</em> <em>Quevedo genuinely expressing an Atlantic identity rooted in the Canary</em> <em>Islands, or are they simply mimicking Puerto Rican reggaeton?</em></p>
+<p>This portfolio takes that question seriously and tries to answer it with data rather than opinion.</p>
+<p>It is also worth acknowledging that <strong>reggaeton is culturally Puerto Rican</strong>. The genre was created by Puerto Rican and broader Caribbean communities, and any analysis of its spread must recognise that origin without flattening it into a generic “Latin sound.” This connection is not new, Canarian emigration to Cuba, Venezuela, and Puerto Rico over five centuries created a shared <em>español</em> <em>atlántico</em>. The goal here is not to claim equivalence between regions, but to measure acoustic distance, and to let that distance speak.</p>
 <blockquote class="blockquote">
 <p><em>Is Canarian urbano its own sound or is it just Bad Bunny with a Spanish accent?</em></p>
 </blockquote>
@@ -131,7 +132,25 @@ Note
 </section>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>In particular tempo provides a useful rythmic dimension for comparing regional scenes.</p>
+<p>Three hypotheses guide this section, each testable against the data:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>H1 -&gt; Tempo convergence:</strong> Streaming-era production has homogenised tempo across all three regions, so regional origin cannot be recovered from BPM alone.</p>
+<p><strong>H2 —&gt; Danceability floor:</strong> Danceability is uniformly high across the corpus, reflecting the shared dance-oriented production of all three urban scenes.</p>
+<p><strong>H3 —&gt; Canary Islands as Atlantic bridge:</strong> The Canary Islands occupies a measurably intermediate acoustic position between Puerto Rico and Mainland Spain on at least some features, reflecting its dual Atlantic identity.</p>
+</div>
+</div>
+<hr>
+<section id="tempo" class="level3">
+<h3 class="anchored" data-anchor-id="tempo">Tempo</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -141,7 +160,71 @@ Note
 </div>
 </div>
 </div>
-<p>The histogram shows that most tracks cluster in a fairly tight rhythmic zone typical of contemporary urbano and reggaeton. Much of the playlist lies roughly between 90 and 140 BPM, which is consistent with dembow-based rhythmic structures and dance-oriented production. At the same time, the spread outside this central range suggests hybridisation: some tracks slow down into heavier groove-based zones, while others move upward toward faster pop-electronic tempos.</p>
+<p>Regional medians are nearly identical: Puerto Rico <strong>109 BPM</strong>, Canary Islands <strong>113 BPM</strong>, Mainland Spain <strong>106 BPM</strong>. All three distributions peak in the same 90–140 BPM window. <strong>H1 is confirmed</strong>, tempo carries musical meaning within reggaeton but no regional discriminating power across this corpus.</p>
+<blockquote class="blockquote">
+<p>Note: The cluster of Puerto Rico tracks above 170 BPM likely reflects Spotify’s tendency to estimate dembow rhythms at double their perceived tempo.</p>
+</blockquote>
+<hr>
+</section>
+<section id="danceability" class="level3">
+<h3 class="anchored" data-anchor-id="danceability">Danceability</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Median danceability is 0.691 for Puerto Rico, 0.680 for the Canary Islands, and 0.675 for Mainland Spain: a difference of less than 0.02 across the entire range. <strong>H2 is confirmed.</strong> Danceability is a genre floor, not a regional signature. Urban music is dance music regardless of whether it is produced in San Juan, Las Palmas, or Madrid.</p>
+<hr>
+</section>
+<section id="where-the-regions-actually-diverge" class="level3">
+<h3 class="anchored" data-anchor-id="where-the-regions-actually-diverge">Where the regions actually diverge</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Three clear patterns emerge:</p>
+<ul>
+<li><p><strong>Acousticness</strong> is the sharpest regional divider. Mainland Spain’s median (0.532) is more than double Puerto Rico’s (0.235) and the Canary Islands’ (0.267). Puerto Rico and the Canary Islands are acoustically indistinguishable here but Mainland Spain is.</p></li>
+<li><p><strong>Valence</strong> tells a more nuanced story. Puerto Rico scores the <em>lowest</em> median valence (0.396), reflecting reggaeton’s tendency toward dark, minor-key production. The Canary Islands (0.485) and Mainland Spain (0.530) are both higher. On this dimension, the Canary Islands does sit between the two, <strong>partially supporting H3</strong>.</p></li>
+<li><p><strong>Energy</strong> shows Puerto Rico highest (0.679), with the Canary Islands and Mainland Spain nearly tied (0.580 and 0.589). Canarian urbano is not more energetic than Spanish pop, it is the acousticness and loudness, not energy, that separates Puerto Rico from the rest.</p></li>
+</ul>
+<hr>
+</section>
+<section id="the-regional-fingerprint" class="level3">
+<h3 class="anchored" data-anchor-id="the-regional-fingerprint">The regional fingerprint</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The parallel coordinates plot summarises the regional fingerprints in one view. The three lines converge at <strong>Danceability</strong> confirming H2. They diverge sharply at <strong>Acousticness</strong>, where Mainland Spain is higher. At <strong>Valence</strong>, the Canary Islands line sits between Puerto Rico and Spain, the clearest visual evidence for H3. The overall picture supports the corpus hypothesis: <strong>these three scenes share a common urban grammar but</strong> <strong>differ in their acoustic texture</strong>, and it is that texture, not rhythm, that carries regional identity.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Assumption:</strong> Regional medians are shaped by artist selection. Omar Montes Latin-influenced pop pushes Mainland Spain’s valence upward, Rosalía’s flamenco pushes its acousticness up. A different artist selection would change these medians. The patterns are real but not universal.</p>
+</div>
+</div>
+</section>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>These three chromagrams represent the pitch-class energy over time for three culturally rooted tracks from each region.</p>
@@ -154,7 +237,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -169,7 +252,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -184,7 +267,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -204,7 +287,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -228,7 +311,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -252,7 +335,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -279,7 +362,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -290,7 +373,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -301,7 +384,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -319,10 +402,10 @@ Note
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -359,10 +442,10 @@ Important
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -399,10 +482,10 @@ Important
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -440,7 +523,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -451,7 +534,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -464,7 +547,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -483,7 +566,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -980,7 +1063,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -990,7 +1073,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1000,7 +1083,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
