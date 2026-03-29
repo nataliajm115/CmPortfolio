@@ -2,6 +2,7 @@
 title: "Urban Music Atlas"
 format: 
   html:
+    # Tabset layout chosen over format:dashboard to preserve custom CSS styling
     theme: darkly
     css: styles.css
     toc: false
@@ -85,6 +86,7 @@ URBAN MUSIC ATLAS
 Spanish-language urban music (2015–2025) across three geographic contexts.
 
 ::: panel-tabset
+
 ## Background
 
 <iframe src="https://open.spotify.com/embed/playlist/0Z93ne5Yrdqr1hLlRqF7hq" 
@@ -92,24 +94,73 @@ width="100%" height="380" frameborder="0"
 allowtransparency="true" allow="encrypted-media"
 style="border-radius: 12px;"></iframe>
 
-This corpus examines Spanish-language urban music (2015–2025) across three 
-geographic contexts: Puerto Rico, the Canary Islands, and mainland Spain. 
-Puerto Rico represents the birthplace of reggaeton and a central node of 
-Caribbean urban production. Mainland Spain represents a European market in which
-urban styles have hybridised with pop, flamenco, and experimental influences. 
-The Canary Islands occupy a unique Atlantic position: politically Spanish yet 
-historically and culturally connected to Latin America and geographically closer
-to Africa.
+### Why this corpus?
 
-The corpus includes approximately 240 tracks drawn from representative artists 
-in each region, balancing reggaeton-focused performers with hybrid urban 
-artists. By analysing Spotify track-level audio features, I want to investigate
-whether measurable stylistic differences reflect proximity to the Caribbean. In 
-particular, whether Canary Islands urbano occupies an intermediate position 
-between Caribbean reggaeton and mainland Spanish urban pop.
+Nowadays, there is a rise in Canarian reggaeton across Spain, and with 
+it, a recurring debate in music criticism and on social media, *are artists like* 
+*Quevedo genuinely expressing an Atlantic identity rooted in the Canary* 
+*Islands, or are they simply mimicking Puerto Rican reggaeton?* This portfolio 
+takes that question seriously and tries to answer it with data rather than 
+opinion.
 
-Rather than assuming genre boundaries, the study explores how urban music 
-ecosystems diverge or converge across space within the global streaming era.
+It is also worth acknowledging that **reggaeton is culturally Puerto Rican**. 
+The genre was created by Puerto Rican and broader Caribbean communities, and 
+any analysis of its spread must recognise that origin without flattening it into 
+a generic "Latin sound." The goal here is not to claim equivalence between regions,
+but to measure acoustic distance — and to let that distance speak.
+
+> *Is Canarian urbano its own sound or is it just Bad Bunny with a Spanish accent?*
+
+---
+
+### The corpus
+
+The corpus covers Spanish-language urban music from **2015 to 2025** across three 
+geographic regions: **Puerto Rico**, the **Canary Islands**, and **Mainland Spain**.
+Approximately **240 tracks** were assembled from representative artists in each 
+region, balancing reggaeton-focused performers with hybrid urban artists. Tracks 
+were retrieved via the Spotify API and selected to reflect each region's distinct
+production ecosystem while keeping the corpus balanced enough for classification.
+
+::: {.callout-note}
+**Corpus assumption:** Artists were assigned to a single region based on their 
+primary cultural origin, even when their music crosses regional lines. This is 
+a deliberate simplification — collaborative tracks were assigned to the lead 
+artist's region. The goal is to isolate regional signal, not to deny that 
+these scenes are in constant dialogue with each other.
+:::
+
+---
+
+### My three tracks
+
+Three tracks were submitted to the class corpus — one per region — selected for 
+their **cultural rootedness**, **sonic clarity**, and **popularity**. Each is 
+emblematic of its region's production style, making them ideal anchors for 
+cross-regional comparison.
+
+::: chroma-grid
+
+::: {.chroma-card .pr}
+::: chroma-header
+🇵🇷 **DtMF · Bad Bunny** — Puerto Rico
+:::
+Bad Bunny is one of the most-streamed Latin artists of all time and the most 
+prominent voice in global reggaeton. **DtMF** was chosen because it is deeply 
+rooted in dembow rhythm, minor-key trap production, and Boricua street 
+vernacular — a direct cultural export of Caribbean urbano. It represents 
+the Puerto Rican end of the spectrum as clearly as any single track can.
+:::
+
+::: {.chroma-card .ci}
+::: chroma-header
+🏝️ **NI BORRACHO · Quevedo** — Canary Islands
+:::
+Quevedo became one of Spain's most-streamed artists with a sound heavily 
+influenced by Latin Caribbean music. **NI BORRACHO** was chosen because it 
+sits at the precise cultural crossroads this study investigates: rhythmically 
+Caribbean, lyrically Canarian, produced in a style that
+
 
 > *Are there measurable stylistic differences across regions?*
 
