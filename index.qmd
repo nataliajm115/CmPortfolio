@@ -203,7 +203,7 @@ style="border-radius: 12px;"></iframe>
 
 ### Why this corpus?
 
-Nowadays, there is a rise in popularity of Canarian music across Spain, and with 
+Recently, there has been a rise in popularity of Canarian music across Spain, and with 
 it, a recurring debate in music criticism and on social media, *are artists like* 
 *Quevedo genuinely expressing an Atlantic identity rooted in the Canary* 
 *Islands, or are they simply mimicking Puerto Rican reggaeton?* 
@@ -211,26 +211,40 @@ it, a recurring debate in music criticism and on social media, *are artists like
 This portfolio takes that question seriously and tries to answer it with data 
 rather than opinion.
 
-It is also worth acknowledging that **reggaeton is culturally Puerto Rican**. 
+It is worth pausing on the question itself. Asking whether Canarian artists 
+are "mimicking" Puerto Rico risks implying that musical influence is 
+inauthentic, but reggaeton has always travelled. From its roots in Jamaican 
+dancehall and Panamanian reggae en español through Puerto Rico and across the 
+Atlantic, the genre has never belonged to one place exclusively. The more 
+useful question is not *whether* Canarian urbano is influenced by Caribbean 
+music, it clearly is, as is all of Spanish-language urban music in 2025, 
+but *whether that influence has been absorbed into something with a* 
+*distinctly Canarian character*, or whether it remains acoustically 
+indistinguishable from its source. That is what this corpus attempts to 
+measure.
+
+It should also be acknowledge that **reggaeton is culturally Puerto Rican**. 
 The genre was created by Puerto Rican and broader Caribbean communities, and 
 any analysis of its spread must recognise that origin without flattening it into 
-a generic "Latin sound." This connection is not new, Canarian emigration to 
-Cuba, Venezuela, and Puerto Rico over five centuries created a shared *español* 
-*atlántico*. The goal here is not to claim equivalence between regions, but to 
-measure acoustic distance, and to let that distance speak.
+a generic "Latin sound." The connection between PR and the Canary Islands is not 
+new, Canarian emigration to Cuba, Venezuela, and Puerto Rico over five centuries
+created a shared *español atlántico*. The goal here is not to claim equivalence 
+between regions, but to measure acoustic distance, and to let that distance speak.
 
-> *Is Canarian urbano its own sound or is it just Bad Bunny with a Spanish accent?*
+> *Does Canarian urbano carry a distinct acoustic identity, or has Caribbean* 
+*influence absorbed it entirely into the global reggaeton sound?*
 
 ---
 
 ### The corpus
 
 The corpus covers Spanish-language urban music from **2015 to 2025** across three 
-geographic regions: **Puerto Rico**, the **Canary Islands**, and **Mainland Spain**.
-Approximately **240 tracks** were chosen from representative artists in each 
-region, balancing reggaeton performers with hybrid urban artists. Tracks 
-were retrieved via the Spotify API and selected to reflect each region's distinct
-production ecosystem while keeping the corpus balanced enough for classification.
+geographic regions: **Puerto Rico**, the **Canary Islands**, and 
+**Mainland Spain**. Approximately **240 tracks** were chosen from representative
+artists in each region, balancing reggaeton performers with hybrid urban artists.
+Tracks were retrieved via the Spotify API and selected to reflect each region's 
+distinct production ecosystem while keeping the corpus balanced enough for 
+classification.
 
 ::: {.callout-note}
 **Corpus assumption:** Artists were assigned to a single region based on their 
@@ -241,7 +255,7 @@ that these scenes are in constant dialogue with each other.
 
 ---
 
-### My three tracks
+### Three main tracks
 
 Three tracks were submitted to the class corpus (one per region) selected for 
 their **cultural rootedness** and **popularity**. Each is 
@@ -278,28 +292,31 @@ central question of this corpus.
 :::
 Rosalía is a Grammy winner who fuses contemporary production 
 with deep flamenco tradition. **Malamente** was chosen as a deliberate 
-counterpoint: it is the track in this corpus most acoustically distant from 
-reggaeton, anchoring the Peninsular Spain end of the regional spectrum. Its 
+counterpoint: it is one of the tracks in this corpus most acoustically distant 
+from reggaeton, anchoring the Peninsular Spain end of the regional spectrum. Its 
 inclusion tests whether Canarian urbano leans toward this end or away from it.
 :::
 
 :::
-
-
-> *Are there measurable stylistic differences across regions?*
 
 ## Track Features
 
 Three hypotheses guide this section, each testable against the data:
 
 ::: {.callout-note}
-**H1 -> Tempo convergence:** Streaming-era production has homogenised tempo across 
+**H1 -> Tempo convergence:** 
+
+Streaming-era production has homogenised tempo across 
 all three regions, so regional origin cannot be recovered from BPM alone.
 
-**H2 —> Danceability floor:** Danceability is uniformly high across the corpus, 
+**H2 —> Danceability floor:** 
+
+Danceability is uniformly high across the corpus, 
 reflecting the shared dance-oriented production of all three urban scenes.
 
-**H3 —> Canary Islands as Atlantic bridge:** The Canary Islands occupies a 
+**H3 —> Canary Islands as Atlantic bridge:** 
+
+The Canary Islands occupies a 
 measurably intermediate acoustic position between Puerto Rico and Mainland Spain 
 on at least some features, reflecting its dual Atlantic identity.
 :::
@@ -332,8 +349,8 @@ Regional medians are nearly identical: Puerto Rico **109 BPM**, Canary Islands
 same 90–140 BPM window. **H1 is confirmed**, tempo carries musical meaning 
 within reggaeton but no regional discriminating power across this corpus.
 
-> Note: The cluster of Puerto Rico tracks above 170 BPM likely reflects Spotify's 
-tendency to estimate dembow rhythms at double their perceived tempo.
+> Note: The cluster of Puerto Rican tracks above 170 BPM likely reflects 
+Spotify's tendency to estimate dembow rhythms at double their perceived tempo.
 
 ---
 
@@ -365,7 +382,7 @@ San Juan, Las Palmas, or Madrid.
 
 ---
 
-### Where the regions actually diverge
+### Where the regions might actually diverge
 ```{r}
 #| echo: false
 #| warning: false
@@ -769,7 +786,7 @@ malamente |>
   )
 ```
 
-Malamente is the opening chapter of Rosalía's *El Mal Querer*, a track 
+Malamente is the most famous piece of Rosalía's *El Mal Querer*, a track 
 about a bad omen, accompanied by rhythmic handclaps and organ-like synths. 
 It is in **F minor** and runs just 2 minutes 29 seconds. The chromagram shows a 
 strong concentration around **G, C, and F#**, reflecting the 
@@ -870,9 +887,9 @@ DTMF_timbre |>
 
 **MFCC_02** dominates throughout, indicating powerful low-frequency energy from 
 the bass and kick drum that underpins DtMF's plena rhythm. The upper MFCCs 
-(15–22) are uniformly dark, confirming a stable electronically-produced timbral
+(15–22) are uniformly darker, confirming a stable electronically-produced timbral
 texture with little acoustic variation. Notably **MFCC_07** shows a persistent 
-dark band across the entire track, a consistent absence of mid-range spectral 
+dark band across the track, a consistent absence of mid-range spectral 
 energy that is characteristic of heavily compressed electronic production where
 the mid frequencies are scooped to make room for bass and vocals.
 
@@ -965,11 +982,7 @@ than the dynamic electronic layering of urban music.
 ---
 
 > All three tracks share a strong MFCC_02 component, suggesting comparable 
-low-frequency energy across regions. However DtMF and NI BORRACHO are 
-timbally far closer to each other than either is to Malamente whose 
-persistent MFCC_09 dark band is the acoustic fingerprint of flamenco 
-production. **This is the timbre evidence that most directly supports the** 
-**corpus hypothesis: Canarian urbano sounds Caribbean, not Iberian.**
+low-frequency energy across regions.
 
 ## Temporal Features
 
@@ -1036,21 +1049,21 @@ DTMF_timbre |>
 ```
 
 ::: {.callout-note}
-**Chroma SSM:** Very dense, almost uniform bright pattern with diagonal 
-lines reflecting plena's highly repetitive harmonic loop where the same 
-chord progression cycles throughout with minimal variation. The uniformity 
-is the structural signature of Caribbean urbano: not monotony, but groove 
-through repetition.
+**Chroma SSM:** Broadly bright throughout, indicating that harmonic content 
+changes frequently, consecutive moments in DtMF are rarely harmonically 
+similar to each other. This is somewhat surprising for a plena-influenced 
+track and may reflect the Spotify chroma features capturing fine-grained 
+pitch variation within what perceptually sounds like a loop. The faint 
+diagonal line confirms only immediate self-similarity, while the lack of 
+clear off-diagonal blocks suggests no large-scale sectional repetition.
 :::
 
 ::: {.callout-important}
 **Timbre SSM:** Shows a grid pattern with bright horizontal and 
 vertical bands indicating that several distinct timbral sections repeat and 
-return throughout the track. This is more structured than the chroma SSM 
-suggests, revealing that while the harmony loops uniformly, the timbral 
-texture actually alternates between sections. The darker bottom-left corner
-reflects the intro section sounding timbrally distinct 
-from the rest of the track.
+return throughout the track. Both harmony and timbre alternate between sections.
+The darker bottom-left corner reflects the intro section sounding timbrally 
+distinct from the rest of the track.
 :::
 
 ---
@@ -1111,20 +1124,20 @@ niBorracho_timbre |>
 ::: {.callout-note}
 **Chroma SSM:** A clear checkerboard pattern with distinct bright and dark 
 blocks showing significantly more harmonic contrast between sections than 
-DtMF's uniform loop. This confirms that NI BORRACHO has a more varied 
+DtMF's SSMs. This confirms that NI BORRACHO has a more stable but varied
 harmonic structure, with sections that sound noticeably different from each 
 other. The verse and chorus carry distinct harmonic colours, consistent with 
 Quevedo's urban-pop style.
 :::
 
 ::: {.callout-important}
-**Timbre SSM:** The most striking of the three. A very clear large dark square 
-in the centre surrounded by brighter areas suggesting a distinct middle 
-section that sounds timbrally very different from both the opening and closing. 
-This corresponds to the mid-song beat change in NI BORRACHO where the 
-production shifts significantly before returning and there is a spoken section. 
-A darker region towards the end reflects a fade, consistent with DtMF's outro 
-pattern.
+**Timbre SSM:** Timbral content shifts frequently throughout NI BORRACHO, 
+with no strongly defined recurring sections, consistent with a production 
+style that maintains constant energy rather than alternating between 
+contrasting blocks. The one clear exception is the section around 160 
+seconds, visible as a distinctly darker region, which likely corresponds 
+to a spoken or stripped-back passage where the production pulls back 
+significantly, creating a timbral texture unlike anything else in the track.
 :::
 
 ---
@@ -1184,15 +1197,17 @@ malamente_timbre |>
 ```
 
 ::: {.callout-note}
-**Chroma SSM:** The clearest block structure of the three, large bright 
-off-diagonal squares confirm that specific harmonic sections return, 
-particularly around 50–70s and 100–120s. This is flamenco's 
-structure made visible: sections that depart and consciously return, unlike 
-the continuous loops of DtMF and NI BORRACHO.
+**Chroma SSM:** The most structured of the three: a checkerboard pattern 
+is visible, suggesting alternation between harmonically distinct sections. 
+However the boundaries are not sharply defined, reflecting flamenco's modal 
+ambiguity: sections contrast with each other but do not resolve into clean, 
+stable harmonic blocks the way a pop verse/chorus structure would. The 
+harmonic movement is purposeful but fluid, consistent with Malamente's 
+through-composed character.
 :::
 
 ::: {.callout-important}
-**Timbre SSM:** Shows approximately 5 large distinct rectangular blocks,
+**Timbre SSM:** Shows approximately 5 large distinct blocks,
 the clearest sectional architecture of the three tracks. Each block represents 
 a timbral section that sounds internally consistent but distinct from the 
 others. This grid-like structure is the timbre equivalent of flamenco's verse 
@@ -1228,8 +1243,8 @@ first seconds of NI BORRACHO the novelty values are high, reaching
 peaks above 25, reflecting frequent rhythmic events associated with percussion 
 and vocal entry. After approximately 15 seconds the values drop sharply, 
 suggesting a more stable musical texture once the groove is established. Two 
-isolated spikes reappear around 29–31 seconds, likely corresponding to a 
-production change or new element entering just before the 30-second mark. 
+isolated spikes reappear around 29–31 seconds, corresponding to the
+production change present in the song just before the 30-second mark. 
 Compared to an energy-based novelty function, this curve 
 captures changes in timbre and structure rather than only amplitude,
 making it more reliable for detecting rhythmic events in highly compressed 
@@ -1257,8 +1272,9 @@ long_tempogram(niBorracho_act) |>
   atlas_theme()
 ```
 
-The autocorrelation tempogram reveals how temporal structures evolve 
-over time. The two most prominent bands appear at approximately **75 BPM** 
+In this tempogram brighter colours indicate stronger periodic repetition 
+at that tempo, yellow being the strongest, blue the weakest.
+The two most prominent bands appear at approximately **75 BPM** 
 **and 150 BPM** the latter likely being a double-time interpretation of 
 the former, consistent with urbano's dembow rhythm where the beat can be 
 perceived at two metrical levels simultaneously. Crucially, all bands 
@@ -1294,22 +1310,26 @@ simultaneously. The 150 BPM band is brightest in the first 12–15 seconds and
 fades after 20 seconds, consistent with the novelty function showing higher 
 onset density in the intro before the groove stabilises.
 
-## Classification of regional styles
+## Classification
 
 While the previous sections analysed three representative tracks in detail,
 this section scales up to the entire corpus of approximately 240 tracks.
 The goal is to test whether Spotify audio features alone are sufficient to
-distinguish regional styles, and if so, which features carry the most discriminating power.
+distinguish regional styles, and if so, which features carry the most 
+discriminating power.
 
 A **Random Forest classifier** is trained to predict region (Puerto Rico,
 Canary Islands, or Mainland Spain) from nine Spotify audio features:
 danceability, energy, loudness, speechiness, acousticness,
 instrumentalness, liveness, valence, and tempo. 
 
-Random Forest was chosen because it handles correlated features naturally — energy and loudness are known to co-vary — and because its feature importance output connects directly back to the acoustic analyses in earlier sections. To reduce overfitting on the small dataset, trees are constrained with `min_n = 40`,
-and `mtry` is tuned via grid search across five values. The classifier is
-evaluated using **5-fold cross-validation**, with 33% accuracy representing
-the random guessing baseline across three equally sized classes.
+Random Forest was chosen because it handles correlated features naturally,
+and because its feature importance output connects directly back to the acoustic
+analyses in earlier sections. To reduce overfitting on the small dataset, 
+trees are constrained with `min_n = 40`, and `mtry` is tuned via grid search 
+across five values. The classifier is evaluated using 
+**5-fold cross-validation**, with 33% accuracy representing the random guessing 
+baseline across three equally sized classes.
 
 ```{r}
 #| echo: false
@@ -1344,9 +1364,7 @@ count(CM_corpus, region) |>
 The corpus remains broadly balanced across the three regions, with only minor 
 differences resulting from the inclusion of collaborative tracks. This confirms 
 that no single region dominates the dataset, ensuring that the classification 
-model is not biased toward a particular group. The slight variations also 
-reflect the collaborative nature of urbano production, where artists frequently 
-work across regional boundaries.
+model is not biased toward a particular group. 
 
 ```{r}
 #| echo: false
@@ -1412,23 +1430,50 @@ show_best(rf_tune, metric = "accuracy", n = 1) |>
 The tuned model achieves a cross-validated accuracy of **59.1%** 
 (κ = 0.386, ±0.030), nearly double the 33% random baseline. The moderate 
 κ score reflects genuine predictive signal while honestly acknowledging 
-the difficulty of distinguishing regional variants of the same genre from  Spotify features.
+the difficulty of distinguishing regional variants of the same genre from 
+Spotify features.
 
 ```{r}
 #| echo: false
-# Training accuracy vs CV accuracy comparison
+#| warning: false
+
 train_pred <- predict(rf_fit, training(data_split)) |>
   bind_cols(training(data_split) |> select(region))
 
 train_acc <- accuracy(train_pred, truth = region, estimate = .pred_class)
 cv_acc <- show_best(rf_tune, metric = "accuracy", n = 1)
 
-cat("Training accuracy:", round(train_acc$.estimate, 3), "\n")
-cat("CV accuracy:      ", round(cv_acc$mean, 3), "±", round(cv_acc$std_err, 3))
+tibble(
+  Source   = c("Training", "Cross-validation"),
+  Accuracy = c(round(train_acc$.estimate, 3), round(cv_acc$mean, 3)),
+  `±SE`    = c(NA, round(cv_acc$std_err, 3))
+) |>
+  gt() |>
+  tab_options(
+    table.background.color         = "#1f2b47",
+    column_labels.background.color = "#16213e",
+    table.border.top.color         = "#f5c842",
+    table.border.top.width         = px(3)
+  ) |>
+  tab_style(
+    style     = cell_text(color = "#f5c842", font = "Bebas Neue"),
+    locations = cells_column_labels()
+  ) |>
+  tab_style(
+    style     = cell_text(color = "#f0ecdf"),
+    locations = cells_body(columns = Source)
+  ) |>
+  tab_style(
+    style     = cell_text(color = "#00b4a2", weight = "bold"),
+    locations = cells_body(columns = c(Accuracy, `±SE`))
+  ) |>
+  fmt_missing(missing_text = "—")
 ```
 
 The training accuracy of **80%** against a CV accuracy of **59.1%** 
-represents a considerably healthier gap than an unconstrained model. Setting `min_n = 40` forces shallower trees, successfully reducing memorisation. The remaining 20-point gap is expected given that the training 
+represents a considerably healthier gap than an unconstrained model. 
+Setting `min_n = 40` forces shallower trees, successfully reducing memorisation. 
+The remaining 20-point gap is expected given that the training 
 set contains roughly 60 examples per class, some fitting to noise is 
 unavoidable at this scale. What matters is that the CV accuracy is stable 
 across folds (±0.030), confirming that 59% generalisation performance is 
@@ -1464,7 +1509,7 @@ regions, a direct consequence of the shallower trees from `min_n = 40`.
 Puerto Rico is harder to classify correctly (9/21), while Canary Islands 
 and Mainland Spain remain similarly difficult (9/16 and 8/16 respectively). 
 The spread of errors across all three regions confirms that no single region 
-is acoustically well-separated from the others — the model is not simply 
+is acoustically well-separated from the others. Thus, the model is not 
 learning one easy distinction but struggling equally with all three boundaries.
 
 ```{r}
@@ -1499,15 +1544,10 @@ rf_fit |>
 closely by **loudness**, which has risen above energy compared to earlier 
 model configurations. This is consistent with Malamente's distinctively 
 quieter, acoustic production contrasting sharply with the heavily compressed 
-loudness of reggaeton and Canarian urbano. **Tempo** ranks last, which is 
-particularly striking given that tempo is a defining structural element of 
-reggaeton, the dembow rhythm operates at a very specific BPM range. However, 
-because Canarian urbano and mainland Spanish urban pop have both converged 
-toward similar tempo zones in the streaming era, all three regions end up 
-sharing the same rhythmic pace. Tempo therefore carries strong musical 
-meaning within reggaeton but no *regional* discriminating power across this 
-corpus, which is exactly what the tempo histogram in the Track Features tab 
-showed.
+loudness of reggaeton and Canarian urbano. **Tempo** ranks last, 
+which was to be expected as tempo is highly stable across regions 
+(see *Track Features* tab), confirming that it carries rhythmic meaning within 
+urbano but no regional discriminating power. 
 
 ```{r}
 #| echo: false
@@ -1536,34 +1576,42 @@ ggplot(pca_baked, aes(x = PC1, y = PC2, color = region)) +
   theme(legend.position = "bottom")
 ```
 
-The PCA scatter remains consistent with the classification results. Puerto 
-Rico shows the clearest outliers along PC1, representing its most 
-distinctively Caribbean tracks. Canary Islands and Mainland Spain ellipses 
-overlap almost completely, explaining why these two regions generate the most 
-confusion in the classifier. The heavy three-way overlap in the centre of the 
-plot is the visual equivalent of the 59% accuracy ceiling for the majority 
-of the corpus, regional style simply cannot be recovered from Spotify features 
-alone.
+The PCA scatter reveals more than the classification accuracy alone suggests. 
+Puerto Rico's most distinctively Caribbean tracks appear as clear outliers 
+to the left along PC1, acoustically the most distant from the other two 
+regions. Mainland Spain's ellipse spans the widest horizontal range, 
+reflecting its internal stylistic diversity: Rosalía's highly acoustic 
+flamenco production sits at one extreme while Omar Montes's Latin-influenced 
+pop sits at the other. The Canary Islands ellipse is notably tighter and 
+more vertically oriented suggesting a more internally consistent scene 
+that clusters around a specific acoustic profile rather than spanning a 
+wide stylistic range. The heavy three-way overlap in the centre is the 
+visual equivalent of the 59% accuracy ceiling but the separation of 
+Puerto Rico's outliers along PC1 confirms that the acoustic signal is real, 
+even if it is not strong enough to classify every track correctly.
 
 ---
 
 ### What the classifier tells us
 
-The Random Forest analysis confirms the  hypothesis of this corpus 
-study: 
-**Canary Islands urbano does not occupy a clean intermediate position between Caribbean reggaeton and Peninsular Spanish pop: it leans Caribbean.**
+The classifier confirms that **Mainland Spain is acoustically distinct** 
+from both Puerto Rico and the Canary Islands, driven primarily by its 
+higher acousticness. The Canary Islands occupies a genuinely intermediate 
+position, harmonically and timbrally closer to Caribbean urbano, but 
+sharing enough acoustic features with Mainland Spain that no classifier 
+can cleanly separate them. The Atlantic connection is real but partial.
+
 The classifier struggles most to separate Canary Islands from Puerto Rico 
 acoustically, while Mainland Spain is distinguishable primarily through its 
 higher acousticness driven by flamenco-rooted production.
 
-A 59% accuracy ceiling is not a failure. It is the quantitative expression 
-of what the chromagram, cepstrogram, and self-similarity analyses all 
-suggested qualitatively: that these three regional styles share enough 
-common ground in the global streaming era that no single set of audio 
-features can cleanly separate them. The features that *do* discriminate
-(acousticness, loudness, energy) map directly onto the timbral differences 
-identified in earlier sections, giving the classification results musical 
-meaning beyond the numbers.
+A 59% accuracy ceiling is the quantitative expression of what the chromagram, 
+cepstrogram, and self-similarity analyses all suggested qualitatively: that 
+these three regional styles share enough common ground in the global streaming 
+era that no single set of audio features can cleanly separate them. 
+The features that *do* discriminate (acousticness, loudness, energy) map 
+directly onto the timbral differences identified in earlier sections, 
+giving the classification results musical meaning beyond the numbers.
 
 ::: {.callout-note}
 **Limitation:** With approximately 20 tracks per artist, the corpus size 
@@ -1575,4 +1623,115 @@ a definitive acoustic boundary between regions.
 :::
 
 ## Contribution
+
+### What this analysis set out to do
+
+This dashboard started from a cultural observation: Canarian urban music is 
+rising in Spain, and with it a recurring debate; are artists like Quevedo 
+genuinely expressing an Atlantic identity rooted in the Canary Islands, are they
+adding character and identity to the genre? Rather than answering that 
+question with opinion, this corpus study attempted to answer it with data.
+
+---
+
+### What the data actually shows
+
+The findings are more nuanced than either side of that debate suggests. 
+Across six analytical dimensions (track-level features, loudness, chroma, 
+timbre, temporal structure, and classification) it has been found that:
+
+**Mainland Spain is the outlier.** Acousticness is the single most powerful 
+regional discriminator, and it separates Mainland Spain sharply from both 
+Puerto Rico and the Canary Islands. 
+
+**The Canary Islands occupies a genuinely intermediate position but not** 
+**equally on all features.** On valence, Canary Islands sits between Puerto 
+Rico and Mainland Spain, consistent with the "Atlantic bridge" hypothesis. 
+On energy and acousticness, it clusters with Puerto Rico rather than Spain. 
+Harmonically and timbrally, the chromagram and cepstrogram analyses both 
+place Quevedo closer to Bad Bunny than to Rosalía.
+
+**Streaming has homogenised what it can.** Tempo and danceability are 
+virtually identical across all three regions, medians within a few BPM and 
+0.02 danceability points of each other. In the streaming era, urban music 
+from San Juan, Las Palmas, and Madrid converges on the same rhythmic grammar. 
+What remains regionally distinct is timbral texture and that is precisely 
+what Spotify's track-level features struggle to capture fully.
+
+**A 59% classifier is not a failure it is the finding.** The fact that 
+audio features alone cannot cleanly separate three regional variants of the 
+same genre is the quantitative expression of cultural convergence. These 
+scenes are in dialogue, not isolation. Regional identity in urbano is real but 
+partial, acoustic but not acoustic enough to be recovered from nine Spotify 
+features.
+
+---
+
+### The most surprising finding
+
+The most personally unexpected result was that **DtMF is one of the quietest** 
+**tracks in the entire corpus** at −27.4 dB, an extreme outlier. This forced an 
+important realisation: Bad Bunny's catalogue is not monolithic. DtMF is a 
+plena not a club reggaeton production. Choosing it as the representative 
+Puerto Rican track was deliberate and defensible, but it shaped every subsequent analysis. The chromagram, cepstrogram, keygram, and loudness position of 
+DtMF all reflect this specific artistic choice rather than Puerto Rican urbano 
+in general.
+
+This is the most important methodological lesson of the entire project: 
+**individual track selection shapes the analysis more than any algorithm**.
+A corpus study is only as good as its assumptions about 
+representativeness, and those assumptions must be made explicit.
+
+---
+
+### Who could benefit from these findings
+
+**The Canarian music industry and cultural institutions** could use this 
+kind of analysis to understand how Canarian urbano is acoustically positioned 
+relative to its influences, and to make informed decisions about how to 
+promote and distinguish it internationally.
+
+**Artists and producers** working in Spanish-language urban music could use 
+regional feature profiles to understand where their sound sits relative to 
+the broader scene, and which acoustic dimensions most strongly signal 
+regional identity.
+
+**Streaming platforms** building regional or culturally-specific playlists 
+face exactly the problem this classifier quantified: Spotify's nine audio 
+features are not sufficient to reliably distinguish Canarian from Puerto 
+Rican urbano. Better regional tagging would require either richer audio 
+features, lyrical analysis, or artist metadata, a practical finding for 
+playlist curation teams.
+
+---
+
+### Limitations and future directions
+
+This study has three honest limitations:
+
+- The corpus is small (roughly 20 tracks per artist) which constrains classifier
+performance and makes individual track outliers like DtMF disproportionately 
+influential. 
+
+- Spotify's audio features are black-box estimates that may not capture the 
+musical dimensions most relevant to regional identity, such as rhythmic 
+microtiming, vocal style, or lyrical content. 
+
+- The three-region framework imposes clean boundaries on what is in reality 
+a continuous cultural geography. The Canary Islands is not simply "between" 
+Puerto Rico and Spain, it is its own place with its own history.
+
+A natural extension would be to expand the corpus to include more artists 
+per region, incorporate lyrical analysis using NLP, and extend the geographic 
+scope to include other Atlantic Spanish-language scenes such as the Dominican 
+Republic or Venezuela, regions whose historical connections to the Canary 
+Islands are at least as strong as Puerto Rico's.
+
+::: {.callout-note}
+**A note on format:** This dashboard is built as a styled HTML tabset rather 
+than a Quarto native dashboard format. This was a deliberate design choice 
+to preserve the custom CSS styling that gives the site its visual identity. 
+The tabset structure provides the same navigational functionality as a 
+dashboard while allowing richer typographic and layout control.
+:::
 :::

@@ -118,7 +118,7 @@ pre  { padding: 1.2rem; overflow-x: auto; }
   color: var(--muted) !important;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: var(--radius) var(--radius) 0 0;
+  border-radius: 20px;
   padding: .55rem 1.3rem;
   transition: color .2s, border-color .2s, background .2s;
 }
@@ -127,25 +127,25 @@ pre  { padding: 1.2rem; overflow-x: auto; }
   color: var(--gold) !important;
   background: rgba(245,200,66,.06);
   border-color: var(--border);
+  border-radius: 20px;
 }
 
 .panel-tabset .nav-tabs .nav-link.active {
   color: var(--night) !important;
   background: var(--gold) !important;
   border-color: var(--gold) !important;
+  border-radius: 20px;
   box-shadow: var(--glow-gold);
 }
 
 .panel-tabset .tab-content {
   background: var(--card);
   border: 1px solid var(--border);
-  border-top: none;
-  border-radius: 0 var(--radius) var(--radius) var(--radius);
+  border-radius: var(--radius);
   padding: 2rem 3rem !important;
   max-width: 100% !important;
   width: 100% !important;
 }
-
 /* ---------- Full width ---------- */
 #quarto-content {
   max-width: 100% !important;
