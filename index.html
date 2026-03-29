@@ -75,12 +75,60 @@ ul.task-list li input[type="checkbox"] {
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <iframe src="https://open.spotify.com/embed/playlist/0Z93ne5Yrdqr1hLlRqF7hq" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media" style="border-radius: 12px;">
 </iframe>
-<p>This corpus examines Spanish-language urban music (2015–2025) across three geographic contexts: Puerto Rico, the Canary Islands, and mainland Spain. Puerto Rico represents the birthplace of reggaeton and a central node of Caribbean urban production. Mainland Spain represents a European market in which urban styles have hybridised with pop, flamenco, and experimental influences. The Canary Islands occupy a unique Atlantic position: politically Spanish yet historically and culturally connected to Latin America and geographically closer to Africa.</p>
-<p>The corpus includes approximately 240 tracks drawn from representative artists in each region, balancing reggaeton-focused performers with hybrid urban artists. By analysing Spotify track-level audio features, I want to investigate whether measurable stylistic differences reflect proximity to the Caribbean. In particular, whether Canary Islands urbano occupies an intermediate position between Caribbean reggaeton and mainland Spanish urban pop.</p>
-<p>Rather than assuming genre boundaries, the study explores how urban music ecosystems diverge or converge across space within the global streaming era.</p>
+<section id="why-this-corpus" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-corpus">Why this corpus?</h3>
+<p>Nowadays, there is a rise in popularity of Canarian music across Spain, and with it, a recurring debate in music criticism and on social media, <em>are artists like</em> <em>Quevedo genuinely expressing an Atlantic identity rooted in the Canary</em> <em>Islands, or are they simply mimicking Puerto Rican reggaeton?</em> This portfolio takes that question seriously and tries to answer it with data rather than opinion.</p>
+<p>It is also worth acknowledging that <strong>reggaeton is culturally Puerto Rican</strong>. The genre was created by Puerto Rican and broader Caribbean communities, and any analysis of its spread must recognise that origin without flattening it into a generic “Latin sound.” The goal here is not to claim equivalence between regions, but to measure acoustic distance — and to let that distance speak.</p>
+<blockquote class="blockquote">
+<p><em>Is Canarian urbano its own sound or is it just Bad Bunny with a Spanish accent?</em></p>
+</blockquote>
+<hr>
+</section>
+<section id="the-corpus" class="level3">
+<h3 class="anchored" data-anchor-id="the-corpus">The corpus</h3>
+<p>The corpus covers Spanish-language urban music from <strong>2015 to 2025</strong> across three geographic regions: <strong>Puerto Rico</strong>, the <strong>Canary Islands</strong>, and <strong>Mainland Spain</strong>. Approximately <strong>240 tracks</strong> were chosen from representative artists in each region, balancing reggaeton performers with hybrid urban artists. Tracks were retrieved via the Spotify API and selected to reflect each region’s distinct production ecosystem while keeping the corpus balanced enough for classification.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Corpus assumption:</strong> Artists were assigned to a single region based on their primary cultural origin, even when their music crosses regional lines. This is a deliberate simplification. The goal is to isolate regional signal, not to deny that these scenes are in constant dialogue with each other.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="my-three-tracks" class="level3">
+<h3 class="anchored" data-anchor-id="my-three-tracks">My three tracks</h3>
+<p>Three tracks were submitted to the class corpus (one per region) selected for their <strong>cultural rootedness</strong> and <strong>popularity</strong>. Each is emblematic of its region’s production style, making them ideal anchors for cross-regional comparison.</p>
+<div class="chroma-grid">
+<div class="chroma-card pr">
+<div class="chroma-header">
+<p>🇵🇷 <strong>DtMF · Bad Bunny</strong> — Puerto Rico</p>
+</div>
+<p>Bad Bunny is one of the most-streamed Latin artists of all time and the most prominent voice in global reggaeton. <strong>DtMF</strong> was chosen because it is deeply rooted in dembow rhythm, minor-key trap production, and Boricua street vernacular.</p>
+</div>
+<div class="chroma-card ci">
+<div class="chroma-header">
+<p>🏝️ <strong>NI BORRACHO · Quevedo</strong> — Canary Islands</p>
+</div>
+<p>Quevedo became one of Spain’s most-streamed artists with a sound heavily influenced by Latin Caribbean music. <strong>NI BORRACHO</strong> was chosen because it sits at the precise cultural crossroads this study investigates: rhythmically Caribbean, lyrically Canarian, produced in a style that borrows from reggaeton but is not reducible to it. It is the track that most directly embodies the central question of this corpus.</p>
+</div>
+<div class="chroma-card sp">
+<div class="chroma-header">
+<p>🇪🇸 <strong>Malamente · Rosalía</strong> — Mainland Spain</p>
+</div>
+<p>Rosalía is a Grammy winner who fuses contemporary production with deep flamenco tradition. <strong>Malamente</strong> was chosen as a deliberate counterpoint: it is the track in this corpus most acoustically distant from reggaeton, anchoring the Peninsular Spain end of the regional spectrum. Its inclusion tests whether Canarian urbano leans toward this end or away from it.</p>
+</div>
+</div>
 <blockquote class="blockquote">
 <p><em>Are there measurable stylistic differences across regions?</em></p>
 </blockquote>
+</section>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>In particular tempo provides a useful rythmic dimension for comparing regional scenes.</p>

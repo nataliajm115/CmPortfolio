@@ -117,25 +117,24 @@ but to measure acoustic distance — and to let that distance speak.
 
 The corpus covers Spanish-language urban music from **2015 to 2025** across three 
 geographic regions: **Puerto Rico**, the **Canary Islands**, and **Mainland Spain**.
-Approximately **240 tracks** were assembled from representative artists in each 
-region, balancing reggaeton-focused performers with hybrid urban artists. Tracks 
+Approximately **240 tracks** were chosen from representative artists in each 
+region, balancing reggaeton performers with hybrid urban artists. Tracks 
 were retrieved via the Spotify API and selected to reflect each region's distinct
 production ecosystem while keeping the corpus balanced enough for classification.
 
 ::: {.callout-note}
 **Corpus assumption:** Artists were assigned to a single region based on their 
 primary cultural origin, even when their music crosses regional lines. This is 
-a deliberate simplification — collaborative tracks were assigned to the lead 
-artist's region. The goal is to isolate regional signal, not to deny that 
-these scenes are in constant dialogue with each other.
+a deliberate simplification. The goal is to isolate regional signal, not to deny
+that these scenes are in constant dialogue with each other.
 :::
 
 ---
 
 ### My three tracks
 
-Three tracks were submitted to the class corpus — one per region — selected for 
-their **cultural rootedness**, **sonic clarity**, and **popularity**. Each is 
+Three tracks were submitted to the class corpus (one per region) selected for 
+their **cultural rootedness** and **popularity**. Each is 
 emblematic of its region's production style, making them ideal anchors for 
 cross-regional comparison.
 
@@ -148,8 +147,7 @@ cross-regional comparison.
 Bad Bunny is one of the most-streamed Latin artists of all time and the most 
 prominent voice in global reggaeton. **DtMF** was chosen because it is deeply 
 rooted in dembow rhythm, minor-key trap production, and Boricua street 
-vernacular — a direct cultural export of Caribbean urbano. It represents 
-the Puerto Rican end of the spectrum as clearly as any single track can.
+vernacular.
 :::
 
 ::: {.chroma-card .ci}
@@ -159,7 +157,23 @@ the Puerto Rican end of the spectrum as clearly as any single track can.
 Quevedo became one of Spain's most-streamed artists with a sound heavily 
 influenced by Latin Caribbean music. **NI BORRACHO** was chosen because it 
 sits at the precise cultural crossroads this study investigates: rhythmically 
-Caribbean, lyrically Canarian, produced in a style that
+Caribbean, lyrically Canarian, produced in a style that borrows from reggaeton 
+but is not reducible to it. It is the track that most directly embodies the 
+central question of this corpus.
+:::
+
+::: {.chroma-card .sp}
+::: chroma-header
+🇪🇸 **Malamente · Rosalía** — Mainland Spain
+:::
+Rosalía is a Grammy winner who fuses contemporary production 
+with deep flamenco tradition. **Malamente** was chosen as a deliberate 
+counterpoint: it is the track in this corpus most acoustically distant from 
+reggaeton, anchoring the Peninsular Spain end of the regional spectrum. Its 
+inclusion tests whether Canarian urbano leans toward this end or away from it.
+:::
+
+:::
 
 
 > *Are there measurable stylistic differences across regions?*
