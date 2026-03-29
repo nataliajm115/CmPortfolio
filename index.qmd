@@ -65,6 +65,66 @@ atlas_theme <- function() {
     )
 }
 
+keygram_theme <- function(title_text) {
+  list(
+    geom_tile(color = "#12152a", linewidth = 0.3),
+    scale_fill_viridis_c(guide = "none"),
+    theme_classic(),
+    theme(
+      plot.background  = element_rect(fill = "#0a0c14", color = NA),
+      panel.background = element_rect(fill = "#12152a", color = NA),
+      panel.grid       = element_blank(),
+      axis.line        = element_line(color = "#252a4a"),
+      axis.ticks       = element_line(color = "#252a4a"),
+      text             = element_text(color = "#f0ecdf", family = "sans"),
+      axis.text        = element_text(color = "#8888aa", size = 7),
+      axis.text.y      = element_text(color = "#f0ecdf", size = 7),
+      axis.title       = element_text(color = "#8888aa"),
+      plot.title       = element_text(color = "#f5c842", family = "sans",
+                                      size = 13, face = "bold",
+                                      margin = margin(b = 10)),
+      plot.margin      = margin(12, 16, 12, 12)
+    ),
+    labs(x = "Time (s)", y = "", title = title_text)
+  )
+}
+
+# Key templates for keygrams
+circshift <- function(v, n) {
+  if (n == 0) v else c(tail(v, n), head(v, -n))
+}
+
+major_key <- c(6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88)
+minor_key <- c(6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17)
+
+key_templates <- tribble(
+  ~name, ~template,
+  "Gb:maj", circshift(major_key, 6),
+  "Bb:min", circshift(minor_key, 10),
+  "Db:maj", circshift(major_key, 1),
+  "F:min",  circshift(minor_key, 5),
+  "Ab:maj", circshift(major_key, 8),
+  "C:min",  circshift(minor_key, 0),
+  "Eb:maj", circshift(major_key, 3),
+  "G:min",  circshift(minor_key, 7),
+  "Bb:maj", circshift(major_key, 10),
+  "D:min",  circshift(minor_key, 2),
+  "F:maj",  circshift(major_key, 5),
+  "A:min",  circshift(minor_key, 9),
+  "C:maj",  circshift(major_key, 0),
+  "E:min",  circshift(minor_key, 4),
+  "G:maj",  circshift(major_key, 7),
+  "B:min",  circshift(minor_key, 11),
+  "D:maj",  circshift(major_key, 2),
+  "F#:min", circshift(minor_key, 6),
+  "A:maj",  circshift(major_key, 9),
+  "C#:min", circshift(minor_key, 1),
+  "E:maj",  circshift(major_key, 4),
+  "G#:min", circshift(minor_key, 8),
+  "B:maj",  circshift(major_key, 11),
+  "D#:min", circshift(minor_key, 3)
+)
+
 # Small helper to safely convert tempogram column names to numeric tempo bins
 long_tempogram <- function(df) {
   time_col <- names(df)[1]
@@ -399,225 +459,375 @@ pushes its acousticness up. A different artist selection would change these
 medians. The patterns are real but not universal.
 :::
 
+## Loudness
+
+Loudness in the Spotify API is measured in **decibels (dB)**, where values 
+closer to 0 dB are louder and more negative values are quieter. This section 
+examines how loudness varies across regions and what it reveals about production 
+style in each scene.
+
+---
+
+### Loudness distribution by region
+```{r}
+#| echo: false
+#| warning: false
+CM_corpus |>
+  filter(!is.na(region)) |>
+  ggplot(aes(x = region, y = loudness, fill = region)) +
+  geom_violin(alpha = 0.75, trim = TRUE, color = NA) +
+  geom_boxplot(width = 0.12, fill = "#0a0c14", color = "#f0ecdf",
+               outlier.size = 1, outlier.alpha = 0.5) +
+  scale_fill_manual(values = region_colours) +
+  coord_cartesian(ylim = c(-20, 0)) +
+  labs(
+    title    = "Loudness distribution by region",
+    subtitle = "Medians: PR = −5.1 dB · CI = −7.2 dB · Spain = −6.6 dB",
+    x = NULL, y = "Loudness (dB)"
+  ) +
+  atlas_theme() +
+  theme(legend.position = "none")
+```
+
+Puerto Rico is the loudest region (median **−5.1 dB**), consistent with 
+reggaeton's heavily compressed, mastered-for-streaming production. More 
+striking is Puerto Rico's spread, a standard deviation of **6.7 dB** compared 
+to just 2.5 dB for the Canary Islands. This reflects the stylistic range within 
+the Puerto Rican selection: from heavily compressed club tracks to sparse, 
+quiet album interludes. The Canary Islands and Mainland Spain are tighter 
+distributions, suggesting more consistent production loudness within each scene.
+
+---
+
+### Loudness and energy — a production signature
+```{r}
+#| echo: false
+#| warning: false
+CM_corpus |>
+  filter(!is.na(region)) |>
+  ggplot(aes(x = loudness, y = energy, color = region)) +
+  geom_point(alpha = 0.55, size = 2) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 1.2) +
+  facet_wrap(~region) +
+  coord_cartesian(xlim = c(-20, 0)) +
+  scale_color_manual(values = region_colours) +
+  labs(
+    title    = "Loudness vs energy by region",
+    subtitle = "Correlation: PR = 0.73 · CI = 0.85 · Spain = 0.82",
+    x = "Loudness (dB)", y = "Energy", color = NULL
+  ) +
+  atlas_theme() +
+  theme(
+    legend.position = "none",
+    strip.background = element_rect(fill = "#16213e", color = NA),
+    strip.text = element_text(color = "#f5c842", size = 10, face = "bold")
+  )
+```
+
+Loudness and energy are strongly correlated across all three regions 
+(r = 0.73–0.85), confirming that louder tracks are consistently perceived 
+as more energetic. The Canary Islands shows the tightest correlation (0.845), 
+suggesting its production style is the most consistent, loud tracks are 
+energetic, quiet tracks are not. Puerto Rico's looser correlation (0.734) 
+reflects the same within-region diversity seen in the loudness distribution: 
+some tracks are loud but surprisingly low in Spotify's energy estimate, 
+likely due to heavily compressed production that reads as loud without the 
+dynamic variation Spotify associates with high energy.
+
+---
+
+### The chosen three tracks in context
+```{r}
+#| echo: false
+#| warning: false
+my_three <- CM_corpus |>
+  filter(track_name %in% c("DtMF", "NI BORRACHO", "MALAMENTE - Cap.1: Augurio"))
+
+CM_corpus |>
+  filter(!is.na(region)) |>
+  ggplot(aes(x = loudness, y = energy)) +
+  geom_point(aes(color = region), alpha = 0.3, size = 2) +
+  geom_point(data = my_three, aes(color = region),
+             size = 5, shape = 18) +
+  ggrepel::geom_label_repel(
+    data = my_three,
+    aes(label = track_name, color = region),
+    fill  = "#0a0c14",
+    size  = 3.5,
+    fontface = "bold",
+    box.padding = 0.5
+  ) +
+  scale_color_manual(values = region_colours) +
+  labs(
+    title    = "Your three tracks vs the corpus",
+    subtitle = "Diamonds = your tracks · Loudness vs energy",
+    x = "Loudness (dB)", y = "Energy", color = NULL
+  ) +
+  atlas_theme() +
+  theme(legend.position = "bottom")
+```
+
+The three focal tracks sit in revealing positions within the corpus. 
+**NI BORRACHO** (−3.4 dB, energy 0.82) is one of the loudest, most energetic 
+tracks in the entire corpus — sitting at the top right of the scatter, beyond 
+even most Puerto Rican tracks. **MALAMENTE** (−4.8 dB, energy 0.48) is 
+moderately loud but low in energy, consistent with flamenco's acoustic 
+intensity without electronic compression. **DtMF** is the most striking 
+outlier at −27.4 dB a very quiet track for a reggaeton artist, reflecting its 
+role as a sparse, melancholic album outro rather than a club production (even if 
+it always sounds in the club). This reinforces a key assumption, Bad Bunny's
+catalogue spans from club productions to sparse, introspective interludes, and 
+DtMF represents the latter. The outlier is not a flaw in the corpus, it is 
+evidence of Puerto Rican urbano's stylistic range compared to the more 
+consistent production loudness of the Canary Islands and Mainland Spain.
+
+::: {.callout-note}
+**Assumption:** Spotify's loudness measure is an integrated track-level value 
+and does not capture dynamic variation within a track. A highly dynamic track 
+with quiet verses and a loud chorus will return a single average value. 
+Section-level loudness analysis would require audio data beyond what the 
+Spotify API provides.
+:::
+
 ## Chroma Features
 
-These three chromagrams represent the pitch-class energy over time for three 
-culturally rooted tracks from each region.
-
-::: chroma-grid
-
-::: {.chroma-card .pr}
-::: chroma-header
-🇵🇷 **DTMF · Bad Bunny** — Puerto Rico
-
-:::
-```{r}
-#| echo: false
-DTMF |>
-  compmus_wrangle_chroma() |> 
-  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
-  compmus_gather_chroma() |> 
-  ggplot(aes(x = start + duration / 2, width = duration, y = pitch_class, fill = value)) +
-  geom_tile() +
-  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  theme_minimal() +
-  scale_fill_viridis_c()
-```
-Shows prominent activity around A♭ and E, common in reggaeton production rooted 
-in Puerto Rico.
-:::
-
-::: {.chroma-card .ci}
-::: chroma-header
-🏝️ **NI BORRACHO · Quevedo** — Canary Islands
-
-:::
-```{r}
-#| echo: false
-niBorracho |>
-  compmus_wrangle_chroma() |> 
-  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
-  compmus_gather_chroma() |> 
-  ggplot(aes(x = start + duration / 2, width = duration, y = pitch_class, fill = value)) +
-  geom_tile() +
-  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  theme_minimal() +
-  scale_fill_viridis_c()
-```
-Energy evenly spread across A, G, F, and E — no single dominant tonal centre, 
-suggesting a blend of Iberian and Latin American influences.
-:::
-
-::: {.chroma-card .sp}
-::: chroma-header
-🇪🇸 **MALAMENTE · Rosalía** — Mainland Spain
-
-:::
-```{r}
-#| echo: false
-malamente |>
-  compmus_wrangle_chroma() |> 
-  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
-  compmus_gather_chroma() |> 
-  ggplot(aes(x = start + duration / 2, width = duration, y = pitch_class, fill = value)) +
-  geom_tile() +
-  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  theme_minimal() +
-  scale_fill_viridis_c()
-```
-Strong concentration around G, C, and F — reflecting the harmonic language deeply embedded in flamenco tradition.
-:::
-
-:::
-
-> Quevedo's chromagram appears harmonically closer to Bad Bunny than to Rosalía — hinting that Canarian music carries a stronger Latin Caribbean influence than a Peninsular Spanish one.
+Chromagrams map pitch-class energy over time, brighter colours indicate stronger 
+presence of a given note at that moment. Keygrams compare those chroma 
+features against major and minor key profiles. 
+Together they answer: *what does each track sound like harmonically, and does* 
+*that match what we hear?*
 
 ---
 
-### Key Estimation
+### 🇵🇷 DtMF · Bad Bunny — Puerto Rico
 ```{r}
 #| echo: false
-#| warning: false
-#| include: false
-circshift <- function(v, n) {
-  if (n == 0) v else c(tail(v, n), head(v, -n))
-}
-
-major_key <- c(6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88)
-minor_key <- c(6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17)
-
-key_templates <- tribble(
-  ~name, ~template,
-  "Gb:maj", circshift(major_key, 6),
-  "Bb:min", circshift(minor_key, 10),
-  "Db:maj", circshift(major_key, 1),
-  "F:min",  circshift(minor_key, 5),
-  "Ab:maj", circshift(major_key, 8),
-  "C:min",  circshift(minor_key, 0),
-  "Eb:maj", circshift(major_key, 3),
-  "G:min",  circshift(minor_key, 7),
-  "Bb:maj", circshift(major_key, 10),
-  "D:min",  circshift(minor_key, 2),
-  "F:maj",  circshift(major_key, 5),
-  "A:min",  circshift(minor_key, 9),
-  "C:maj",  circshift(major_key, 0),
-  "E:min",  circshift(minor_key, 4),
-  "G:maj",  circshift(major_key, 7),
-  "B:min",  circshift(minor_key, 11),
-  "D:maj",  circshift(major_key, 2),
-  "F#:min", circshift(minor_key, 6),
-  "A:maj",  circshift(major_key, 9),
-  "C#:min", circshift(minor_key, 1),
-  "E:maj",  circshift(major_key, 4),
-  "G#:min", circshift(minor_key, 8),
-  "B:maj",  circshift(major_key, 11),
-  "D#:min", circshift(minor_key, 3)
-)
-```
-
-These keygrams compare the chroma features of each track against major and minor
-key profiles, revealing which key the music gravitates towards over time. 
-Brighter areas indicate a stronger match to that key.
-
-```{r}
-#| echo: false
-#| warning: false
-
-# Shared theme helper — define once, reuse
-keygram_theme <- function(title_text) {
-  list(
-    geom_tile(color = "#12152a", linewidth = 0.3),
-    scale_fill_gradientn(
-      colors = c("#d62839", "#0a0c14", "#00b4a2", "#f5c842"),
-      guide  = "none"
-    ),
-    theme_classic(),
-    theme(
-      plot.background  = element_rect(fill = "#0a0c14", color = NA),
-      panel.background = element_rect(fill = "#12152a", color = NA),
-      panel.grid       = element_blank(),
-      axis.line        = element_line(color = "#252a4a"),
-      axis.ticks       = element_line(color = "#252a4a"),
-      text             = element_text(color = "#f0ecdf", family = "sans"),
-      axis.text        = element_text(color = "#8888aa", size = 7),
-      axis.text.y      = element_text(color = "#f0ecdf", size = 7),
-      axis.title       = element_text(color = "#8888aa"),
-      plot.title       = element_text(color = "#f5c842", family = "sans",
-                                      size = 13, face = "bold",
-                                      margin = margin(b = 10)),
-      plot.margin      = margin(12, 16, 12, 12)
-    ),
-    labs(x = "Time (s)", y = "", title = title_text)
+#| fig-width: 10
+#| fig-height: 3
+DTMF |>
+  compmus_wrangle_chroma() |>
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+  compmus_gather_chroma() |>
+  ggplot(aes(x = start + duration / 2, width = duration, y = pitch_class, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_minimal() +
+  scale_fill_viridis_c() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    text = element_text(color = "#f0ecdf"),
+    axis.text = element_text(color = "#8888aa")
   )
-}
 ```
 
-**🇵🇷 DtMF · Bad Bunny — Keygram**
+DtMF is not a typical reggaeton track, it is a 
+[*plena*](https://en.wikipedia.org/wiki/Plena), a Puerto Rican folk 
+with choir chants and a nostalgic, mellow beat. The chromagram reflects this: 
+**A♭ and E** carry the most energy, consistent with the track's key of E major. 
+The brightness is relatively uniform across the entire song, suggesting a 
+harmonically stable loop structure, typical of plena, the same chord progression
+cycling under Bad Bunny's emotional reflections about people he misses and a 
+Puerto Rico he fears losing to gentrification. The choir chants that enter 
+periodically (*"debí tirar más fotos de cuando te tuve"*) likely correspond to 
+the moments of slightly increased brightness across the upper pitch classes.
+
+**🇵🇷 DtMF — Keygram**
 ```{r}
 #| echo: false
 #| warning: false
+#| fig-width: 10
+#| fig-height: 4
 DTMF |>
   compmus_wrangle_chroma() |>
   filter(row_number() %% 50L == 0L) |>
   compmus_match_pitch_template(key_templates, method = "euclidean", norm = "manhattan") |>
   ggplot(aes(x = start + duration/2, width = 50*duration, y = name, fill = d)) +
-  keygram_theme("DtMF — Keygram")
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = NULL, title = "DtMF — Keygram") +
+  theme_minimal() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#f0ecdf", size = 7),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold")
+  )
 ```
 
 ::: {.callout-note}
-**Key:** The keygram shows consistent brightness concentrated around D#:min and 
-B:maj throughout the track, suggesting DtMF gravitates towards these keys. 
-This is consistent with reggaeton's tendency to use minor keys with a dark, 
-intense character. The bright yellow spike in the first 25 seconds likely 
-reflects the instrumental intro before the vocal and beat fully establish the 
-harmonic centre.
+The keygram shows consistent brightness around **D#:min and B:maj** both 
+compatible with E major, DtMF's confirmed key. The bright 
+spike in the first ~25 seconds corresponds to the sparse instrumental intro 
+before Bad Bunny's voice. Once the vocals and choir enter the key profile 
+concentrates around D#:min and B:maj, though darker patches at roughly 100s and 
+150s suggest brief harmonic departures, corresponding to the chorus sections
+where the choir's call-and-response shifts the pitch energy momentarily before returning to the established tonal centre.
 :::
 
 ---
 
-**🏝️ NI BORRACHO · Quevedo — Keygram**
+### 🏝️ NI BORRACHO · Quevedo — Canary Islands
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 3
+niBorracho |>
+  compmus_wrangle_chroma() |>
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+  compmus_gather_chroma() |>
+  ggplot(aes(x = start + duration / 2, width = duration, y = pitch_class, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_minimal() +
+  scale_fill_viridis_c() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    text = element_text(color = "#f0ecdf"),
+    axis.text = element_text(color = "#8888aa")
+  )
+```
+
+NI BORRACHO is a celebration of Canarian identity, a defiant anthem where 
+Quevedo lists places across the islands and declares he would not leave *even* 
+*if drunk* (the title translated). The chromagram shows energy spread 
+across **B, Bb, A, G, F, and E** with no single dominant pitch class. 
+This harmonic diffusion is characteristic of trap-urban production that blend 
+chord colours. Unlike DtMF's plena loop, the chroma remains consistently active 
+from the first seconds, with bright flashes across multiple pitch classes 
+reflecting the track's relentless dance energy throughout. There is no dramatic 
+structural contrast between sections, the production maintains the same 
+harmonic density from intro to outro. The comparatively scattered chroma 
+profile places this track closer to Bad Bunny than to Rosalía, despite its 
+Canarian lyrical content.
+
+**🏝️ NI BORRACHO — Keygram**
 ```{r}
 #| echo: false
 #| warning: false
+#| fig-width: 10
+#| fig-height: 4
 niBorracho |>
   compmus_wrangle_chroma() |>
   filter(row_number() %% 50L == 0L) |>
   compmus_match_pitch_template(key_templates, method = "euclidean", norm = "manhattan") |>
   ggplot(aes(x = start + duration/2, width = 50*duration, y = name, fill = d)) +
-  keygram_theme("NI BORRACHO — Keygram")
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = NULL, title = "NI BORRACHO — Keygram") +
+  theme_minimal() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#f0ecdf", size = 7),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold")
+  )
 ```
 
 ::: {.callout-note}
-**Key:** The keygram shows more evenly distributed brightness than DtMF, with no
-dominant key throughout. There is some concentration in the upper keys, 
-consistent with the track's harmonically blended character noted in the 
-chromagram. The absence of a strongly dominant key across the full track 
-could reflect Quevedo's intermediate Atlantic position, neither as tonally fixed
-as Caribbean reggaeton nor as modally complex as Peninsular flamenco.
+The keygram shows almost uniformly bright values across all 24 keys throughout 
+the entire track — a visual confirmation that no single key dominates. This 
+is unusual and tells us something important: the key-matching algorithm 
+struggles with NI BORRACHO because its harmonic language does not conform 
+cleanly to standard Western major/minor profiles. The one notable exception 
+is the isolated dark patch around 150 seconds, which likely corresponds to 
+a brief production drop or instrumental break where the harmonic density 
+temporarily reduces. The absence of a clear tonal anchor reinforces the 
+Atlantic hybrid nature of the production: neither as modally fixed as 
+Caribbean plena nor as tonally complex as Andalusian flamenco.
 :::
 
 ---
 
-**🇪🇸 Malamente · Rosalía — Keygram**
+### 🇪🇸 Malamente · Rosalía — Mainland Spain
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 3
+malamente |>
+  compmus_wrangle_chroma() |>
+  mutate(pitches = map(pitches, compmus_normalise, "euclidean")) |>
+  compmus_gather_chroma() |>
+  ggplot(aes(x = start + duration / 2, width = duration, y = pitch_class, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
+  theme_minimal() +
+  scale_fill_viridis_c() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    text = element_text(color = "#f0ecdf"),
+    axis.text = element_text(color = "#8888aa")
+  )
+```
+
+Malamente is the opening chapter of Rosalía's *El Mal Querer*, a track 
+about a bad omen, accompanied by rhythmic handclaps and organ-like synths. 
+It is in **F minor** and runs just 2 minutes 29 seconds. The chromagram shows a 
+strong concentration around **G, C, and F#**, reflecting the 
+[Phrygian mode](https://en.wikipedia.org/wiki/Flamenco_mode) that gives flamenco 
+its characteristic dark, tense quality. Notice the **clear vertical shifts** 
+roughly every 30 seconds: these correspond to Rosalía's structured verse 
+sections, where the handclap rhythm resets and her vocal phrases shift 
+register. The brief moment of wider pitch spread near the track's centre 
+(around 100 seconds) coincides with the commanding chorus where 
+she sings *"malamente, mal muy mal muy mal"*. Unlike DtMF and NI BORRACHO, the 
+chroma here is clearly structured rather than looped, reflecting flamenco's 
+through-composed approach rather than trap's cyclic production.
+
+**🇪🇸 Malamente — Keygram**
 ```{r}
 #| echo: false
 #| warning: false
+#| fig-width: 10
+#| fig-height: 4
 malamente |>
   compmus_wrangle_chroma() |>
   filter(row_number() %% 50L == 0L) |>
   compmus_match_pitch_template(key_templates, method = "euclidean", norm = "manhattan") |>
   ggplot(aes(x = start + duration/2, width = 50*duration, y = name, fill = d)) +
-  keygram_theme("Malamente — Keygram")
+  geom_tile() +
+  scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = NULL, title = "Malamente — Keygram") +
+  theme_minimal() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#f0ecdf", size = 7),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold")
+  )
 ```
 
 ::: {.callout-note}
-**Key:** The most distinctive keygram of the three. Clear yellow bands appear at
-specific moments (at middle of song and toward the end) rather than consistently
-throughout, suggesting strong but shifting tonal centres. This is characteristic
-of flamenco's harmony, which does not conform to standard major/minor key 
-profiles — explaining why the brightness is more fragmented and less stable than
-in the other two tracks.
+The most distinctive keygram of the three. Clear bright bands appear at 
+**specific structural moments** rather than consistently throughout which does 
+not conform neatly to standard major/minor key profiles. The bright yellow spike 
+at approximately 50 seconds corresponds to the chorus, the harmonic tension 
+peaks as her voice rises before settling back into the fragmented pattern. 
+The fragmentary key profile is the chromatic signature of flamenco itself: a 
+modal tradition that standard Western key templates struggle to capture cleanly.
 :::
+
+---
+
+> Quevedo's chromagram sits harmonically closer to Bad Bunny than to Rosalía. 
+Both DtMF and NI BORRACHO share diffuse, loop-based chroma profiles without 
+a dominant tonal anchor, while Malamente's structured harmonic movement and 
+Phrygian concentration set it clearly apart. The chroma evidence supports 
+the corpus hypothesis: **Canarian urbano speaks Caribbean harmonically, 
+not Iberian.**
+
+---
 
 ## Timbre Features
 

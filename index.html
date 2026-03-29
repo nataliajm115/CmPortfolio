@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>Spanish-language urban music (2015–2025) across three geographic contexts.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Background</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Track Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Chroma Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Timbre Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Temporal Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">Classification of regional styles</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false" href="">Contribution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Background</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Track Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Loudness</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Chroma Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Timbre Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">Temporal Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false" href="">Classification of regional styles</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-8-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-8" role="tab" aria-controls="tabset-1-8" aria-selected="false" href="">Contribution</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <iframe src="https://open.spotify.com/embed/playlist/0Z93ne5Yrdqr1hLlRqF7hq" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media" style="border-radius: 12px;">
@@ -227,12 +227,10 @@ Important
 </section>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>These three chromagrams represent the pitch-class energy over time for three culturally rooted tracks from each region.</p>
-<div class="chroma-grid">
-<div class="chroma-card pr">
-<div class="chroma-header">
-<p>🇵🇷 <strong>DTMF · Bad Bunny</strong> — Puerto Rico</p>
-</div>
+<p>Loudness in the Spotify API is measured in <strong>decibels (dB)</strong>, where values closer to 0 dB are louder and more negative values are quieter. This section examines how loudness varies across regions and what it reveals about production style in each scene.</p>
+<hr>
+<section id="loudness-distribution-by-region" class="level3">
+<h3 class="anchored" data-anchor-id="loudness-distribution-by-region">Loudness distribution by region</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -242,12 +240,11 @@ Important
 </div>
 </div>
 </div>
-<p>Shows prominent activity around A♭ and E, common in reggaeton production rooted in Puerto Rico.</p>
-</div>
-<div class="chroma-card ci">
-<div class="chroma-header">
-<p>🏝️ <strong>NI BORRACHO · Quevedo</strong> — Canary Islands</p>
-</div>
+<p>Puerto Rico is the loudest region (median <strong>−5.1 dB</strong>), consistent with reggaeton’s heavily compressed, mastered-for-streaming production. More striking is Puerto Rico’s spread, a standard deviation of <strong>6.7 dB</strong> compared to just 2.5 dB for the Canary Islands. This reflects the stylistic range within the Puerto Rican selection: from heavily compressed club tracks to sparse, quiet album interludes. The Canary Islands and Mainland Spain are tighter distributions, suggesting more consistent production loudness within each scene.</p>
+<hr>
+</section>
+<section id="loudness-and-energy-a-production-signature" class="level3">
+<h3 class="anchored" data-anchor-id="loudness-and-energy-a-production-signature">Loudness and energy — a production signature</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -257,12 +254,11 @@ Important
 </div>
 </div>
 </div>
-<p>Energy evenly spread across A, G, F, and E — no single dominant tonal centre, suggesting a blend of Iberian and Latin American influences.</p>
-</div>
-<div class="chroma-card sp">
-<div class="chroma-header">
-<p>🇪🇸 <strong>MALAMENTE · Rosalía</strong> — Mainland Spain</p>
-</div>
+<p>Loudness and energy are strongly correlated across all three regions (r = 0.73–0.85), confirming that louder tracks are consistently perceived as more energetic. The Canary Islands shows the tightest correlation (0.845), suggesting its production style is the most consistent, loud tracks are energetic, quiet tracks are not. Puerto Rico’s looser correlation (0.734) reflects the same within-region diversity seen in the loudness distribution: some tracks are loud but surprisingly low in Spotify’s energy estimate, likely due to heavily compressed production that reads as loud without the dynamic variation Spotify associates with high energy.</p>
+<hr>
+</section>
+<section id="the-chosen-three-tracks-in-context" class="level3">
+<h3 class="anchored" data-anchor-id="the-chosen-three-tracks-in-context">The chosen three tracks in context</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -272,26 +268,7 @@ Important
 </div>
 </div>
 </div>
-<p>Strong concentration around G, C, and F — reflecting the harmonic language deeply embedded in flamenco tradition.</p>
-</div>
-</div>
-<blockquote class="blockquote">
-<p>Quevedo’s chromagram appears harmonically closer to Bad Bunny than to Rosalía — hinting that Canarian music carries a stronger Latin Caribbean influence than a Peninsular Spanish one.</p>
-</blockquote>
-<hr>
-<section id="key-estimation" class="level3">
-<h3 class="anchored" data-anchor-id="key-estimation">Key Estimation</h3>
-<p>These keygrams compare the chroma features of each track against major and minor key profiles, revealing which key the music gravitates towards over time. Brighter areas indicate a stronger match to that key.</p>
-<p><strong>🇵🇷 DtMF · Bad Bunny — Keygram</strong></p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>The three focal tracks sit in revealing positions within the corpus. <strong>NI BORRACHO</strong> (−3.4 dB, energy 0.82) is one of the loudest, most energetic tracks in the entire corpus — sitting at the top right of the scatter, beyond even most Puerto Rican tracks. <strong>MALAMENTE</strong> (−4.8 dB, energy 0.48) is moderately loud but low in energy, consistent with flamenco’s acoustic intensity without electronic compression. <strong>DtMF</strong> is the most striking outlier at −27.4 dB a very quiet track for a reggaeton artist, reflecting its role as a sparse, melancholic album outro rather than a club production (even if it always sounds in the club). This reinforces a key assumption, Bad Bunny’s catalogue spans from club productions to sparse, introspective interludes, and DtMF represents the latter. The outlier is not a flaw in the corpus, it is evidence of Puerto Rican urbano’s stylistic range compared to the more consistent production loudness of the Canary Islands and Mainland Spain.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -302,67 +279,138 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Key:</strong> The keygram shows consistent brightness concentrated around D#:min and B:maj throughout the track, suggesting DtMF gravitates towards these keys. This is consistent with reggaeton’s tendency to use minor keys with a dark, intense character. The bright yellow spike in the first 25 seconds likely reflects the instrumental intro before the vocal and beat fully establish the harmonic centre.</p>
-</div>
-</div>
-<hr>
-<p><strong>🏝️ NI BORRACHO · Quevedo — Keygram</strong></p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Key:</strong> The keygram shows more evenly distributed brightness than DtMF, with no dominant key throughout. There is some concentration in the upper keys, consistent with the track’s harmonically blended character noted in the chromagram. The absence of a strongly dominant key across the full track could reflect Quevedo’s intermediate Atlantic position, neither as tonally fixed as Caribbean reggaeton nor as modally complex as Peninsular flamenco.</p>
-</div>
-</div>
-<hr>
-<p><strong>🇪🇸 Malamente · Rosalía — Keygram</strong></p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Key:</strong> The most distinctive keygram of the three. Clear yellow bands appear at specific moments (at middle of song and toward the end) rather than consistently throughout, suggesting strong but shifting tonal centres. This is characteristic of flamenco’s harmony, which does not conform to standard major/minor key profiles — explaining why the brightness is more fragmented and less stable than in the other two tracks.</p>
+<p><strong>Assumption:</strong> Spotify’s loudness measure is an integrated track-level value and does not capture dynamic variation within a track. A highly dynamic track with quiet verses and a loud chorus will return a single average value. Section-level loudness analysis would require audio data beyond what the Spotify API provides.</p>
 </div>
 </div>
 </section>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>Chromagrams map pitch-class energy over time, brighter colours indicate stronger presence of a given note at that moment. Keygrams compare those chroma features against major and minor key profiles. Together they answer: <em>what does each track sound like harmonically, and does</em> <em>that match what we hear?</em></p>
+<hr>
+<section id="dtmf-bad-bunny-puerto-rico" class="level3">
+<h3 class="anchored" data-anchor-id="dtmf-bad-bunny-puerto-rico">🇵🇷 DtMF · Bad Bunny — Puerto Rico</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>DtMF is not a typical reggaeton track, it is a <a href="https://en.wikipedia.org/wiki/Plena"><em>plena</em></a>, a Puerto Rican folk with choir chants and a nostalgic, mellow beat. The chromagram reflects this: <strong>A♭ and E</strong> carry the most energy, consistent with the track’s key of E major. The brightness is relatively uniform across the entire song, suggesting a harmonically stable loop structure, typical of plena, the same chord progression cycling under Bad Bunny’s emotional reflections about people he misses and a Puerto Rico he fears losing to gentrification. The choir chants that enter periodically (<em>“debí tirar más fotos de cuando te tuve”</em>) likely correspond to the moments of slightly increased brightness across the upper pitch classes.</p>
+<p><strong>🇵🇷 DtMF — Keygram</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The keygram shows consistent brightness around <strong>D#:min and B:maj</strong> both compatible with E major, DtMF’s confirmed key. The bright spike in the first ~25 seconds corresponds to the sparse instrumental intro before Bad Bunny’s voice. Once the vocals and choir enter the key profile concentrates around D#:min and B:maj, though darker patches at roughly 100s and 150s suggest brief harmonic departures, corresponding to the chorus sections where the choir’s call-and-response shifts the pitch energy momentarily before returning to the established tonal centre.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="ni-borracho-quevedo-canary-islands" class="level3">
+<h3 class="anchored" data-anchor-id="ni-borracho-quevedo-canary-islands">🏝️ NI BORRACHO · Quevedo — Canary Islands</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>NI BORRACHO is a celebration of Canarian identity, a defiant anthem where Quevedo lists places across the islands and declares he would not leave <em>even</em> <em>if drunk</em> (the title translated). The chromagram shows energy spread across <strong>B, Bb, A, G, F, and E</strong> with no single dominant pitch class. This harmonic diffusion is characteristic of trap-urban production that blend chord colours. Unlike DtMF’s plena loop, the chroma remains consistently active from the first seconds, with bright flashes across multiple pitch classes reflecting the track’s relentless dance energy throughout. There is no dramatic structural contrast between sections, the production maintains the same harmonic density from intro to outro. The comparatively scattered chroma profile places this track closer to Bad Bunny than to Rosalía, despite its Canarian lyrical content.</p>
+<p><strong>🏝️ NI BORRACHO — Keygram</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The keygram shows almost uniformly bright values across all 24 keys throughout the entire track — a visual confirmation that no single key dominates. This is unusual and tells us something important: the key-matching algorithm struggles with NI BORRACHO because its harmonic language does not conform cleanly to standard Western major/minor profiles. The one notable exception is the isolated dark patch around 150 seconds, which likely corresponds to a brief production drop or instrumental break where the harmonic density temporarily reduces. The absence of a clear tonal anchor reinforces the Atlantic hybrid nature of the production: neither as modally fixed as Caribbean plena nor as tonally complex as Andalusian flamenco.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="malamente-rosalía-mainland-spain" class="level3">
+<h3 class="anchored" data-anchor-id="malamente-rosalía-mainland-spain">🇪🇸 Malamente · Rosalía — Mainland Spain</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Malamente is the opening chapter of Rosalía’s <em>El Mal Querer</em>, a track about a bad omen, accompanied by rhythmic handclaps and organ-like synths. It is in <strong>F minor</strong> and runs just 2 minutes 29 seconds. The chromagram shows a strong concentration around <strong>G, C, and F#</strong>, reflecting the <a href="https://en.wikipedia.org/wiki/Flamenco_mode">Phrygian mode</a> that gives flamenco its characteristic dark, tense quality. Notice the <strong>clear vertical shifts</strong> roughly every 30 seconds: these correspond to Rosalía’s structured verse sections, where the handclap rhythm resets and her vocal phrases shift register. The brief moment of wider pitch spread near the track’s centre (around 100 seconds) coincides with the commanding chorus where she sings <em>“malamente, mal muy mal muy mal”</em>. Unlike DtMF and NI BORRACHO, the chroma here is clearly structured rather than looped, reflecting flamenco’s through-composed approach rather than trap’s cyclic production.</p>
+<p><strong>🇪🇸 Malamente — Keygram</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The most distinctive keygram of the three. Clear bright bands appear at <strong>specific structural moments</strong> rather than consistently throughout which does not conform neatly to standard major/minor key profiles. The bright yellow spike at approximately 50 seconds corresponds to the chorus, the harmonic tension peaks as her voice rises before settling back into the fragmented pattern. The fragmentary key profile is the chromatic signature of flamenco itself: a modal tradition that standard Western key templates struggle to capture cleanly.</p>
+</div>
+</div>
+<hr>
+<blockquote class="blockquote">
+<p>Quevedo’s chromagram sits harmonically closer to Bad Bunny than to Rosalía. Both DtMF and NI BORRACHO share diffuse, loop-based chroma profiles without a dominant tonal anchor, while Malamente’s structured harmonic movement and Phrygian concentration set it clearly apart. The chroma evidence supports the corpus hypothesis: <strong>Canarian urbano speaks Caribbean harmonically, not Iberian.</strong></p>
+</blockquote>
+<hr>
+</section>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
 <p>These cepstrograms show the timbral texture over time for each track using Mel-Frequency Cepstral Coefficients (MFCCs).</p>
 <p><strong>🇵🇷 Bad Bunny – DtMF (Puerto Rico)</strong></p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -373,7 +421,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -384,7 +432,7 @@ Note
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -394,18 +442,18 @@ Note
 <p>All three tracks share a strong mfcc_02 component, suggesting comparable low-frequency energy across regions. Bad Bunny and Quevedo are timbally closer to each other and Malamente stands out with its unique MFCC_09 pattern. This aligns with out hypothesis that Canarian urbano leans Caribbean rather than Iberian.</p>
 </blockquote>
 </div>
-<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
 <p>Self-similarity matrices reveal the internal structure of each track by comparing every moment against every other moment. Bright diagonal stripes indicate repeated sections; checkerboard patterns suggest clear verse/chorus alternation. Each track is analysed using both chroma (harmonic) and timbre (textural) data.</p>
 <hr>
-<section id="dtmf-bad-bunny-puerto-rico" class="level3">
-<h3 class="anchored" data-anchor-id="dtmf-bad-bunny-puerto-rico">🇵🇷 DtMF · Bad Bunny (Puerto Rico)</h3>
+<section id="dtmf-bad-bunny-puerto-rico-1" class="level3">
+<h3 class="anchored" data-anchor-id="dtmf-bad-bunny-puerto-rico-1">🇵🇷 DtMF · Bad Bunny (Puerto Rico)</h3>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -437,15 +485,15 @@ Important
 </div>
 <hr>
 </section>
-<section id="ni-borracho-quevedo-canary-islands" class="level3">
-<h3 class="anchored" data-anchor-id="ni-borracho-quevedo-canary-islands">🏝️ NI BORRACHO · Quevedo (Canary Islands)</h3>
+<section id="ni-borracho-quevedo-canary-islands-1" class="level3">
+<h3 class="anchored" data-anchor-id="ni-borracho-quevedo-canary-islands-1">🏝️ NI BORRACHO · Quevedo (Canary Islands)</h3>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -482,10 +530,10 @@ Important
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="index_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -523,7 +571,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -534,7 +582,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -547,7 +595,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -558,7 +606,7 @@ Important
 <p>The intensity of the band is strongest in the first 10–12 seconds, reflecting a higher density of rhythmic onsets during the introduction of the track. After this point the periodic structure remains visible but slightly weaker, suggesting a more consistent groove once the rhythm stabilizes.</p>
 </section>
 </div>
-<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
 <p>While the previous sections analysed three representative tracks in detail, this section scales up to the entire corpus of approximately 240 tracks. The goal is to test whether Spotify audio features alone are sufficient to distinguish regional styles, and if so, which features carry the most discriminating power.</p>
 <p>A <strong>Random Forest classifier</strong> is trained to predict region (Puerto Rico, Canary Islands, or Mainland Spain) from nine Spotify audio features: danceability, energy, loudness, speechiness, acousticness, instrumentalness, liveness, valence, and tempo.</p>
 <p>Random Forest was chosen because it handles correlated features naturally — energy and loudness are known to co-vary — and because its feature importance output connects directly back to the acoustic analyses in earlier sections. To reduce overfitting on the small dataset, trees are constrained with <code>min_n = 40</code>, and <code>mtry</code> is tuned via grid search across five values. The classifier is evaluated using <strong>5-fold cross-validation</strong>, with 33% accuracy representing the random guessing baseline across three equally sized classes.</p>
@@ -566,7 +614,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1063,7 +1111,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1073,7 +1121,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1083,7 +1131,7 @@ Important
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1109,7 +1157,7 @@ Note
 </div>
 </section>
 </div>
-<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
+<div id="tabset-1-8" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-8-tab">
 
 </div>
 </div>
