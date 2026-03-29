@@ -831,91 +831,163 @@ not Iberian.**
 
 ## Timbre Features
 
-These cepstrograms show the timbral texture over time for each track using Mel-Frequency Cepstral Coefficients (MFCCs).
-
-**🇵🇷 Bad Bunny – DtMF (Puerto Rico)**
-```{r}
-#| echo: false
-DTMF_timbre |>
-  compmus_wrangle_timbre() |> 
-  mutate(timbre = map(timbre, compmus_normalise, "manhattan")) |>
-  compmus_gather_timbre() |>
-  ggplot(aes(x = start + duration / 2, width = duration, y = mfcc, fill = value)) +
-  geom_tile() +
-  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  scale_fill_viridis_c() +                              
-  theme_classic() +
-  ggtitle("DtMF - Bad Bunny (Puerto Rico)")
-```
-MFCC_02 shows the most variation with spikes throughout, indicating strong and 
-consistent low-frequency energy, typical of reggeaton's heavy bass and kick drum
-production.The upper MFCCs (15 to 21) are relatively uniform, suggesting a 
-stable, electronically produced timbral texture with little acoustic variation. 
-
-
-**🏝️ Quevedo – NI BORRACHO (Canary Islands)**
-```{r}
-#| echo: false
-niBorracho_timbre |>
-  compmus_wrangle_timbre() |> 
-  mutate(timbre = map(timbre, compmus_normalise, "manhattan")) |>
-  compmus_gather_timbre() |>
-  ggplot(aes(x = start + duration / 2, width = duration, y = mfcc, fill = value)) +
-  geom_tile() +
-  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  scale_fill_viridis_c() +                              
-  theme_classic() +
-  ggtitle("NI BORRACHO - Quevedo (Canary Islands)")
-```
-Just like DtMF, mfcc_02 also dominates with strong brightness. However, mfcc_07 
-shows more dramatic dark patches, moments of contrast that could correspond to 
-the chorus of the song and the production drops that it has. The overall texture
-is more varied than Bad Bunny's, hinting at a more melodically dynamic 
-production style that blends urban and pop.
-
-**🇪🇸 Rosalía – Malamente (Spain)**
-```{r}
-#| echo: false
-malamente_timbre |>
-  compmus_wrangle_timbre() |> 
-  mutate(timbre = map(timbre, compmus_normalise, "manhattan")) |>
-  compmus_gather_timbre() |>
-  ggplot(aes(x = start + duration / 2, width = duration, y = mfcc, fill = value)) +
-  geom_tile() +
-  labs(x = "Time (s)", y = NULL, fill = "Magnitude") +
-  scale_fill_viridis_c() +                              
-  theme_classic() +
-  ggtitle("MALAMENTE - Rosalía (Peninsular Spain)")
-```
-This is the most distinctive cepstogram of the three. 
-MFCC_09 shows a persistent band of negative values for 
-the entire length of the track which reflects the 
-timbral quality of the guitar and flamenco vocals which
-occupy a different frequency than electronic production.
-MFCC_02 still shows brightness but less so than the 
-other two tracks.
-
-> All three tracks share a strong mfcc_02 component, suggesting comparable 
-low-frequency energy across regions. Bad Bunny and Quevedo are timbally closer 
-to each other and Malamente stands out with its unique MFCC_09 pattern. 
-This aligns with out hypothesis that Canarian urbano leans Caribbean rather than
-Iberian.
-
-## Temporal Features
-
-Self-similarity matrices reveal the internal structure of each track by 
-comparing every moment against every other moment. Bright diagonal stripes 
-indicate repeated sections; checkerboard patterns suggest clear verse/chorus 
-alternation. Each track is analysed using both chroma (harmonic) and timbre 
-(textural) data.
+Cepstrograms show the timbral texture of each track over time using 
+Mel-Frequency Cepstral Coefficients (MFCCs). Lower MFCCs capture broad 
+spectral shape (bass, warmth, body) while higher MFCCs capture fine 
+timbral detail. Bright areas indicate strong energy at that coefficient; 
+dark areas indicate absence.
 
 ---
 
-### 🇵🇷 DtMF · Bad Bunny (Puerto Rico)
+### 🇵🇷 DtMF · Bad Bunny — Puerto Rico
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 3
+DTMF_timbre |>
+  compmus_wrangle_timbre() |>
+  mutate(timbre = map(timbre, compmus_normalise, "manhattan")) |>
+  compmus_gather_timbre() |>
+  ggplot(aes(x = start + duration / 2, width = duration, y = mfcc, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude",
+       title = "DtMF — Cepstrogram") +
+  scale_fill_viridis_c() +
+  theme_classic() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold"),
+    legend.background = element_rect(fill = "#12152a", color = NA),
+    legend.text       = element_text(color = "#f0ecdf")
+  )
+```
+
+**MFCC_02** dominates throughout, indicating powerful low-frequency energy from 
+the bass and kick drum that underpins DtMF's plena rhythm. The upper MFCCs 
+(15–22) are uniformly dark, confirming a stable electronically-produced timbral
+texture with little acoustic variation. Notably **MFCC_07** shows a persistent 
+dark band across the entire track, a consistent absence of mid-range spectral 
+energy that is characteristic of heavily compressed electronic production where
+the mid frequencies are scooped to make room for bass and vocals.
+
+---
+
+### 🏝️ NI BORRACHO · Quevedo — Canary Islands
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 3
+niBorracho_timbre |>
+  compmus_wrangle_timbre() |>
+  mutate(timbre = map(timbre, compmus_normalise, "manhattan")) |>
+  compmus_gather_timbre() |>
+  ggplot(aes(x = start + duration / 2, width = duration, y = mfcc, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude",
+       title = "NI BORRACHO — Cepstrogram") +
+  scale_fill_viridis_c() +
+  theme_classic() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold"),
+    legend.background = element_rect(fill = "#12152a", color = NA),
+    legend.text       = element_text(color = "#f0ecdf")
+  )
+```
+
+Like DtMF, **MFCC_02** dominates with strong brightness, confirming 
+comparable low-frequency bass energy between the Caribbean and Canarian 
+productions. However **MFCC_06** shows a persistent dark band similar to 
+DtMF's MFCC_07 pattern, while the mid-range coefficients (MFCC_03 to MFCC_05) 
+show more activity than in DtMF. These dark patches correspond to the production
+drops in NI BORRACHO, moments where Quevedo's 
+vocal delivery shifts register as he moves from the verse into the energetic 
+chorus listing Canarian towns. The overall timbral texture is more varied than 
+DtMF's, hinting at a more melodically dynamic production style 
+exactly what you would expect from a Canarian artist navigating between 
+Caribbean and European influences.
+
+---
+
+### 🇪🇸 Malamente · Rosalía — Mainland Spain
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 3
+malamente_timbre |>
+  compmus_wrangle_timbre() |>
+  mutate(timbre = map(timbre, compmus_normalise, "manhattan")) |>
+  compmus_gather_timbre() |>
+  ggplot(aes(x = start + duration / 2, width = duration, y = mfcc, fill = value)) +
+  geom_tile() +
+  labs(x = "Time (s)", y = NULL, fill = "Magnitude",
+       title = "Malamente — Cepstrogram") +
+  scale_fill_viridis_c() +
+  theme_classic() +
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold"),
+    legend.background = element_rect(fill = "#12152a", color = NA),
+    legend.text       = element_text(color = "#f0ecdf")
+  )
+```
+
+Simlarly to the previous visualizations, this is the most distinctive 
+cepstrogram of the three. **MFCC_07 and MFCC_09** show 
+a persistent dark band running the entire length of the track which 
+occupy a different spectral register than electronic bass production. This 
+band is absent in both DtMF and NI BORRACHO, making it the clearest timbral 
+dividing line between the Spanish and Caribbean/Canarian productions. 
+**MFCC_02** still shows brightness but noticeably less than the other two 
+tracks, consistent with Malamente's lower loudness and energy values seen 
+in the Loudness tab. The mid-range MFCCs are notably stable and uniform 
+reflecting the sparse, controlled acoustic production of flamenco rather 
+than the dynamic electronic layering of urban music.
+
+---
+
+> All three tracks share a strong MFCC_02 component, suggesting comparable 
+low-frequency energy across regions. However DtMF and NI BORRACHO are 
+timbally far closer to each other than either is to Malamente whose 
+persistent MFCC_09 dark band is the acoustic fingerprint of flamenco 
+production. **This is the timbre evidence that most directly supports the** 
+**corpus hypothesis: Canarian urbano sounds Caribbean, not Iberian.**
+
+## Temporal Features
+
+Self-similarity matrices (SSMs) reveal the internal structure of each track 
+by comparing every moment against every other moment. Bright areas indicate 
+high similarity — diagonal stripes mean repeated sections, off-diagonal 
+blocks mean sections that return later. Each track is analysed using both 
+chroma (harmonic) and timbre (textural) data.
+
+---
+
+### 🇵🇷 DtMF · Bad Bunny — Puerto Rico
 ```{r}
 #| echo: false
 #| warning: false
 #| layout-ncol: 2
+#| fig-width: 5
+#| fig-height: 5
 DTMF |>
   compmus_wrangle_chroma() |>
   filter(row_number() %% 50L == 0L) |>
@@ -926,8 +998,18 @@ DTMF |>
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Time (s)", title = "DtMF — Chroma SSM") +
   theme_classic() +
-  labs(x = "", y = "", title = "DtMF — Chroma SSM")
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold")
+  )
 
 DTMF_timbre |>
   compmus_wrangle_timbre() |>
@@ -939,27 +1021,47 @@ DTMF_timbre |>
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Time (s)", title = "DtMF — Timbre SSM") +
   theme_classic() +
-  labs(x = "", y = "", title = "DtMF — Timbre SSM")
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold")
+  )
 ```
 
 ::: {.callout-note}
-**Chroma SSM:** Very dense, almost uniform bright pattern with faint diagonal 
-lines which reflects reggaeton's highly repetitive harmonic loop where the same 
-chord progression repeats throughout with minimal variation.
+**Chroma SSM:** Very dense, almost uniform bright pattern with diagonal 
+lines reflecting plena's highly repetitive harmonic loop where the same 
+chord progression cycles throughout with minimal variation. The uniformity 
+is the structural signature of Caribbean urbano: not monotony, but groove 
+through repetition.
 :::
 
 ::: {.callout-important}
-**Timbre SSM:** Structured with clear rectangular blocks. While the harmonic content changes constantly, the timbral texture shifts between sections. Notably, the dark square visible towards the end likely corresponds to the spoken word outro where the music fades and vocals take over, creating a timbral texture distinct from the rest of the track.
+**Timbre SSM:** Shows a grid pattern with bright horizontal and 
+vertical bands indicating that several distinct timbral sections repeat and 
+return throughout the track. This is more structured than the chroma SSM 
+suggests, revealing that while the harmony loops uniformly, the timbral 
+texture actually alternates between sections. The darker bottom-left corner
+reflects the intro section sounding timbrally distinct 
+from the rest of the track.
 :::
 
 ---
 
-### 🏝️ NI BORRACHO · Quevedo (Canary Islands)
+### 🏝️ NI BORRACHO · Quevedo — Canary Islands
 ```{r}
 #| echo: false
 #| warning: false
 #| layout-ncol: 2
+#| fig-width: 5
+#| fig-height: 5
 niBorracho |>
   compmus_wrangle_chroma() |>
   filter(row_number() %% 50L == 0L) |>
@@ -970,8 +1072,18 @@ niBorracho |>
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Time (s)", title = "NI BORRACHO — Chroma SSM") +
   theme_classic() +
-  labs(x = "", y = "", title = "NI BORRACHO — Chroma SSM")
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold")
+  )
 
 niBorracho_timbre |>
   compmus_wrangle_timbre() |>
@@ -983,25 +1095,47 @@ niBorracho_timbre |>
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Time (s)", title = "NI BORRACHO — Timbre SSM") +
   theme_classic() +
-  labs(x = "", y = "", title = "NI BORRACHO — Timbre SSM")
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold")
+  )
 ```
-
 ::: {.callout-note}
-**Chroma SSM:** Similar dense pattern to Bad Bunny but with slightly more visible block structure, hinting at clearer harmonic contrast between sections. This is consistent with a more melodically varied urban-pop production style.
+**Chroma SSM:** A clear checkerboard pattern with distinct bright and dark 
+blocks showing significantly more harmonic contrast between sections than 
+DtMF's uniform loop. This confirms that NI BORRACHO has a more varied 
+harmonic structure, with sections that sound noticeably different from each 
+other. The verse and chorus carry distinct harmonic colours, consistent with 
+Quevedo's urban-pop style.
 :::
 
 ::: {.callout-important}
-**Timbre SSM:** The most striking of the three. The SSM shows a very clear large dark square in the centre surrounded by brighter areas, suggesting a distinct middle section that sounds timbrally very different from the rest. This likely corresponds to the mid-song beat change, where production shifts significantly, creating a timbral texture that contrasts sharply with both opening and closing sections. As with DtMF, a dark region towards the end likely reflects the spoken or faded-out passage.
+**Timbre SSM:** The most striking of the three. A very clear large dark square 
+in the centre surrounded by brighter areas suggesting a distinct middle 
+section that sounds timbrally very different from both the opening and closing. 
+This corresponds to the mid-song beat change in NI BORRACHO where the 
+production shifts significantly before returning and there is a spoken section. 
+A darker region towards the end reflects a fade, consistent with DtMF's outro 
+pattern.
 :::
 
 ---
 
-### 🇪🇸 Malamente · Rosalía (Peninsular Spain)
+### 🇪🇸 Malamente · Rosalía — Mainland Spain
 ```{r}
 #| echo: false
 #| warning: false
 #| layout-ncol: 2
+#| fig-width: 5
+#| fig-height: 5
 malamente |>
   compmus_wrangle_chroma() |>
   filter(row_number() %% 50L == 0L) |>
@@ -1012,8 +1146,18 @@ malamente |>
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Time (s)", title = "Malamente — Chroma SSM") +
   theme_classic() +
-  labs(x = "", y = "", title = "Malamente — Chroma SSM")
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold")
+  )
 
 malamente_timbre |>
   compmus_wrangle_timbre() |>
@@ -1025,48 +1169,77 @@ malamente_timbre |>
   geom_tile() +
   coord_fixed() +
   scale_fill_viridis_c(guide = "none") +
+  labs(x = "Time (s)", y = "Time (s)", title = "Malamente — Timbre SSM") +
   theme_classic() +
-  labs(x = "", y = "", title = "Malamente — Timbre SSM")
+  theme(
+    plot.background  = element_rect(fill = "#0a0c14", color = NA),
+    panel.background = element_rect(fill = "#12152a", color = NA),
+    panel.grid       = element_blank(),
+    axis.line        = element_line(color = "#252a4a"),
+    axis.ticks       = element_line(color = "#252a4a"),
+    text             = element_text(color = "#f0ecdf"),
+    axis.text        = element_text(color = "#8888aa"),
+    plot.title       = element_text(color = "#f5c842", size = 13, face = "bold")
+  )
 ```
 
 ::: {.callout-note}
-**Chroma SSM:** Shows the clearest block structure of the three: distinct sections reflecting flamenco's more varied harmonic movement compared to reggaeton's loops. Structure is visible and meaningful here.
+**Chroma SSM:** The clearest block structure of the three, large bright 
+off-diagonal squares confirm that specific harmonic sections return, 
+particularly around 50–70s and 100–120s. This is flamenco's 
+structure made visible: sections that depart and consciously return, unlike 
+the continuous loops of DtMF and NI BORRACHO.
 :::
 
 ::: {.callout-important}
-**Timbre SSM:** Strong diagonal stripes with clear off-diagonal blocks. Several sections return and repeat, consistent with flamenco's structured forms. Malamente has the most clearly defined musical structure of the three tracks.
+**Timbre SSM:** Shows approximately 5 large distinct rectangular blocks,
+the clearest sectional architecture of the three tracks. Each block represents 
+a timbral section that sounds internally consistent but distinct from the 
+others. This grid-like structure is the timbre equivalent of flamenco's verse 
+forms: clearly delineated, purposefully contrasted. **Flamenco is composed,** 
+**urbano is looped.**
 :::
 
-### Rythm and Tempo · NI BORRACHO
-To extend the temporal analysis beyond structural repetition, I analysed
-**NI BORRACHO** using a novelty function and two tempograms generated in
-Sonic Visualiser. These visualisations highlight moments of rhythmic change
-and reveal how pulse strength is distributed across different tempo levels.
+---
+
+### Rhythm and Tempo · NI BORRACHO
+
+To extend the temporal analysis beyond structural repetition, **NI BORRACHO** 
+was analysed using a novelty function and two tempograms. These visualisations 
+highlight moments of rhythmic change and reveal how pulse strength is 
+distributed across different tempo levels.
+
 ```{r}
 #| echo: false
+#| fig-width: 10
 ggplot(niBorracho_novelty, aes(x = TIME, y = VALUE)) +
   geom_line(color = "#00b4a2", linewidth = 0.7) +
   coord_cartesian(xlim = c(0, 30)) +
   labs(
-    title = "NI BORRACHO — Novelty Function",
+    title    = "NI BORRACHO — Novelty Function",
     subtitle = "First 30 seconds",
-    x = "Time (s)",
-    y = "Novelty"
+    x = "Time (s)", y = "Novelty"
   ) +
   atlas_theme()
 ```
-The novelty curve shows rapid frame-level changes in the audio signal. The teal
-line represents the raw novelty function. In the first seconds of **NI BORRACHO**, the novelty values are dense and high, reflecting frequent rhythmic events associated with percussion and vocal entry. Later sections show fewer spikes,suggesting more stable musical texture.
 
-Compared to an energy-based novelty function, this spectrum-based novelty curve
-captures changes in timbre and spectral structure rather than only amplitude.
-For highly compressed urbano productions, this makes it more reliable for
-detecting rhythmic events and therefore more useful for beat tracking.
+The novelty curve shows rapid frame-level changes in the audio signal. In the 
+first seconds of NI BORRACHO the novelty values are high, reaching 
+peaks above 25, reflecting frequent rhythmic events associated with percussion 
+and vocal entry. After approximately 15 seconds the values drop sharply, 
+suggesting a more stable musical texture once the groove is established. Two 
+isolated spikes reappear around 29–31 seconds, likely corresponding to a 
+production change or new element entering just before the 30-second mark. 
+Compared to an energy-based novelty function, this curve 
+captures changes in timbre and structure rather than only amplitude,
+making it more reliable for detecting rhythmic events in highly compressed 
+urbano productions.
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
+#| fig-width: 10
 long_tempogram(niBorracho_act) |>
   ggplot(aes(x = TIME, y = tempo, fill = value)) +
   geom_raster() +
@@ -1077,45 +1250,49 @@ long_tempogram(niBorracho_act) |>
   scale_fill_viridis_c(option = "C", guide = "none") +
   coord_cartesian(xlim = c(0, 30)) +
   labs(
-    title = "NI BORRACHO — Autocorrelation Tempogram",
+    title    = "NI BORRACHO — Autocorrelation Tempogram",
     subtitle = "First 30 seconds",
-    x = "Time (s)",
-    y = "Tempo (BPM)"
+    x = "Time (s)", y = "Tempo (BPM)"
   ) +
   atlas_theme()
 ```
-The autocorrelation tempogram allowes us to observe how tempo-related structures evolve over time. Brighter horizontal bands indicate tempi with stronger periodic repetition.
 
-In the first 30 seconds of “Ni Borracho”, several strong horizontal bands appear between approximately 70 BPM and 150 BPM, indicating a stable rhythmic structure typical of urbano and reggaeton production. The most prominent band occurs around ~90–100 BPM, which likely corresponds to the track’s underlying pulse. Additional bands at higher tempi represent harmonic multiples of the beat (double or triple tempo interpretations).
-
-The brightness of these bands is strongest during the first 10–15 seconds, suggesting that rhythmic activity and onset density are highest in the introductory section. After this point, the energy becomes more diffuse, indicating a more stable groove where fewer new rhythmic events are introduced.
-
-Overall, the tempogram shows that the track maintains a consistent tempo structure, with periodicities remaining relatively stable across the analysed time window.
+The autocorrelation tempogram reveals how temporal structures evolve 
+over time. The two most prominent bands appear at approximately **75 BPM** 
+**and 150 BPM** the latter likely being a double-time interpretation of 
+the former, consistent with urbano's dembow rhythm where the beat can be 
+perceived at two metrical levels simultaneously. Crucially, all bands 
+remain stable and consistent across the entire 30-second window confirming that 
+NI BORRACHO maintains a locked rhythmic structure from the very first beat.
 
 ```{r}
+#| echo: false
 #| warning: false
 #| message: false
-#| echo: false
+#| fig-width: 10
 long_tempogram(niBorracho_dft) |>
   ggplot(aes(x = TIME, y = tempo, fill = value)) +
   geom_raster() +
   scale_fill_viridis_c(option = "C", guide = "none") +
   coord_cartesian(xlim = c(0, 30), ylim = c(40, 250)) +
   labs(
-    title = "NI BORRACHO — Fourier Tempogram",
+    title    = "NI BORRACHO — Fourier Tempogram",
     subtitle = "First 30 seconds",
-    x = "Time (s)",
-    y = "Tempo (BPM)"
+    x = "Time (s)", y = "Tempo (BPM)"
   ) +
   atlas_theme()
 ```
-The Fourier tempogram shows the strength of periodicities in the novelty curve using a short-time Fourier transform. Brighter regions indicate tempi where rhythmic periodicities are strongest over time.
 
-In the first 30 seconds of “Ni Borracho”, the most prominent band appears around 150 BPM, indicating a strong and stable rhythmic periodicity at this tempo. This likely corresponds to the perceived pulse of the track or a metrical subdivision of the main beat, which is common in urbano and reggaeton rhythms where the perceived beat may be interpreted at multiple metrical levels.
-
-The strong horizontal structure indicates that the tempo remains stable over time, with little temporal drift. Compared with the autocorrelation tempogram, the Fourier tempogram shows fewer parallel tempo bands and highlights the dominant periodicity more clearly, making it easier to identify the principal tempo of the track.
-
-The intensity of the band is strongest in the first 10–12 seconds, reflecting a higher density of rhythmic onsets during the introduction of the track. After this point the periodic structure remains visible but slightly weaker, suggesting a more consistent groove once the rhythm stabilizes.
+The Fourier tempogram highlights the dominant periodicity more clearly than 
+the autocorrelation approach. The most prominent band appears at approximately 
+**150 BPM**, with a fainter band at 225 BPM representing a harmonic multiple. 
+Notably there is no visible band below 100 BPM, unlike the autocorrelation 
+tempogram which showed activity at ~75 BPM. This difference reflects how the 
+two methods weight periodicities differently. The Fourier approach isolates 
+the strongest single pulse, while autocorrelation captures all metrical levels 
+simultaneously. The 150 BPM band is brightest in the first 12–15 seconds and 
+fades after 20 seconds, consistent with the novelty function showing higher 
+onset density in the intro before the groove stabilises.
 
 ## Classification of regional styles
 
